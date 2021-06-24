@@ -5,7 +5,7 @@ import ServicePage from './ServicePage';
 import IndividualServicePage from './IndividualServicePage';
 import Boss from './Boss'
 import ContactPage from './ContactPage';
-import Maps from './Maps'
+//import Maps from './Maps'
 import {makeStyles, ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
 import {Grid,Fade} from '@material-ui/core';
 import AppContext from './context/appContext';
@@ -25,6 +25,9 @@ function AppWrapper(){
   )
 }
 
+//<Route path = '/maps'>
+<//Maps/>
+//</Route>
 
 function App() {
   const classes = useStyles();
@@ -48,9 +51,7 @@ function App() {
       <Route path = '/contact'>
         <ContactPage/>
       </Route>
-      <Route path = '/maps'>
-        <Maps/>
-      </Route>
+   
     </Switch>
     </div>
     </ThemeProvider>
