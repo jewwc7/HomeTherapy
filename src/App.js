@@ -26,7 +26,7 @@ function AppWrapper(){
 }
 
 //<Route path = '/maps'>
-<//Maps/>
+//Maps/>
 //</Route>
 
 function App() {
