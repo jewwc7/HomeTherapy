@@ -522,7 +522,7 @@ const styles = {
     },
     linear:{
        backgroundColor: '#d3d3d3',
-       backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, #7f8c8d 74%)',
+       backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, red 74%)',
     },
     
 
