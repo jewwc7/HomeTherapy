@@ -134,7 +134,8 @@ const Massages = () =>{
             label='Swedish'
             avatar={<Avatar style={{backgroundColor: isEqualTo(swedish, massageCard.massageSelected ) ? thirdColor : ''}}>S</Avatar>} 
             style={{
-                fontSize: 18
+                fontSize: 18,
+                backgroundColor: 'rgba(60,60,60,1)'
             }}
             variant='outlined'
             onClick={()=> setCardandMassage(swedish)}
