@@ -25,7 +25,10 @@ const AppState = (props) => {
     const mainSectionMargin = 70;
     const ctaColor = 'rgba(90,0,0,1)';
     const thirdColor = 'rgba(0, 62, 58, 1)';
-    const textColor = 'rgba(20,20,20,1)'
+    const textColor = 'rgba(20,20,20,1)';
+    const subtTitleText = 10;
+    const bigPText = 24;
+    const clickableChip = 'rgba(220,220,220,.5)';
     const listItemFont = 20;
     const smallScreen = 960;
     const [modalVisible, setModalVisible] = useState(false);
@@ -120,7 +123,10 @@ const AppState = (props) => {
            textColor,
            addBlankGrids,
            listItemFont,
-          smallScreen
+           smallScreen,
+           clickableChip,
+           subtTitleText,
+           bigPText
         }}
        > 
            {props.children}  

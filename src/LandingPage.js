@@ -1,15 +1,14 @@
 import React, {useContext, useState} from 'react'
 import AppContext from './context/appContext';
 import {Grid, Button, Snackbar, Image, ButtonGroup, Avatar, TextField, MenuItem, List, ListItem,Chip,Paper,Fade, Slide} from '@material-ui/core';
-import {Card, CardActions, CardContent, CardHeader, CardActionArea} from '@material-ui/core/';
+import {Card, CardActions, CardContent, CardHeader, CardActionArea, CardMedia} from '@material-ui/core/';
 import {makeStyles,} from "@material-ui/core/styles";
 import person19 from './Photos/person19.jpg'
+import massageGun from './Photos/massageGun.jpg'
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import PinterestIcon from '@material-ui/icons/Pinterest';
-import RoomIcon from '@material-ui/icons/Room';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import myFunctions from './MyFunctions2';
 import { useHistory } from 'react-router-dom';
@@ -26,6 +25,9 @@ const massageTypes = {
   ninety: '90 Minutes',
   oneTwenty: '120 Minutes'
 }
+
+
+
 
 const LandingPage = (props) => {
    const classes = useStyles()
@@ -72,6 +74,8 @@ const LandingPage = (props) => {
                     <Button
                         style={styles.ctaBtn}
                         size='large'
+                        color='primary'
+                        variant='contained'
                     >
                         Book Now
                     </Button>
@@ -90,6 +94,7 @@ const LandingPage = (props) => {
                 </Grid>
             </Grid>
             <Massages/>
+            <Reviews/>
             <ContactForm/>
         </div>
     )
@@ -98,7 +103,7 @@ const LandingPage = (props) => {
 const Massages = () =>{
     const appContext = useContext(AppContext);
     const [massageCard, setMassageCard] = useState({massageSelected:null, timeSelected:null})
-    const {lineHeight, afterHeaderMargin, mainSectionMargin,smallScreen,textColor,thirdColor, dispatch,currentState} = appContext;
+    const {lineHeight, afterHeaderMargin, mainSectionMargin,smallScreen,textColor,thirdColor, dispatch,currentState,clickableChip} = appContext;
     const {swedish,deepTissue,sports,thai, thirty,sixty,ninety, oneTwenty}= massageTypes
     const history =useHistory()
     function setCardandMassage(massage){
@@ -120,7 +125,7 @@ const Massages = () =>{
     }
  
     return (
-      <Grid container direction='row' style={{padding:15, marginTop:mainSectionMargin,  }} justify='space-between' >
+      <Grid container direction='row' style={{padding:15, marginTop:mainSectionMargin, ...styles.linear  }} justify='space-between' >
         <Grid item direction='column' xs={12} md={6}>
           <h1 style={{ }}>Massages</h1>
           <Grid container item style={{marginTop:afterHeaderMargin, display:'flex', width:'100%', flexWrap:'wrap', }} >
@@ -153,7 +158,7 @@ const Massages = () =>{
             <Grid item xs={12} md={6} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
             <Chip
             label= 'Deep Tissue'
-            avatar={<Avatar style={{backgroundColor: isEqualTo(deepTissue, massageCard.massageSelected ) ? thirdColor : ''}}>D</Avatar>} 
+            avatar={<Avatar style={{backgroundColor: isEqualTo(deepTissue, massageCard.massageSelected ) ? 'rgba(200,100,100,1)' : ''}}>D</Avatar>} 
             style={{
                 fontSize:18,
          //     marginRight: isGreaterThan(smallScreen, window.innerWidth) ? '5%' : 0,
@@ -187,8 +192,51 @@ const Massages = () =>{
                 }
                 title={<h2 style={{color:textColor}}>{currentState.selectedMassage.title}</h2>}
             />
-            <CardContent>
-                <p style={{lineHeight:lineHeight, color:textColor}}>{currentState.selectedMassage.description}</p>
+            <CardContent style={{display:'flex', justifyContent:'space-between', width:'60%'}}>
+              <Chip
+                label= '30min'
+                variant='outlined'
+                disabled={currentState.selectedMassage.prices[0].hasOwnProperty(30) ? false : true   }
+                clickable={currentState.selectedMassage.prices[0].hasOwnProperty(30) ? true : false   }
+                style={{
+                  backgroundColor: currentState.selectedMassage.prices[0].hasOwnProperty(30) ? clickableChip :null
+                }}
+
+              />
+              <Chip
+                label='60min'
+                disabled={currentState.selectedMassage.prices[0].hasOwnProperty(60) ? false : true   }
+                variant='outlined'
+                clickable={currentState.selectedMassage.prices[0].hasOwnProperty(60) ? true : false   }
+                style={{
+                  backgroundColor: currentState.selectedMassage.prices[0].hasOwnProperty(60) ? clickableChip :null
+                }}
+              />
+              <Chip
+                label='90min'
+                variant='outlined'
+                disabled={currentState.selectedMassage.prices[0].hasOwnProperty(90) ? false : true   }
+                clickable={currentState.selectedMassage.prices[0].hasOwnProperty(90) ? true : false   }
+                style={{
+                  backgroundColor: currentState.selectedMassage.prices[0].hasOwnProperty(90) ? clickableChip :null
+                }}
+
+
+              />
+              <Chip
+                label='120min'
+                variant='outlined'
+                disabled={currentState.selectedMassage.prices[0].hasOwnProperty(120) ? false : true   }
+                clickable={currentState.selectedMassage.prices[0].hasOwnProperty(120) ? true : false   }
+                style={{
+                  backgroundColor: currentState.selectedMassage.prices[0].hasOwnProperty(120) ? clickableChip :null
+                }}
+
+
+              />
+            </CardContent>
+            <CardContent style= {{lineHeight:lineHeight, color:textColor}}>
+               {currentState.selectedMassage.description}
             </CardContent>
             <CardActions>
                     <Button
@@ -215,11 +263,11 @@ const Massages = () =>{
              paddingTop: isGreaterThan(smallScreen, window.innerWidth) ? 0 : 60
           }}
           >
-            <h1 style={{}}>Times</h1>
+            <h1 style={{}}>EnhanceMents</h1>
             <Grid container item style={{marginTop:afterHeaderMargin, display:'flex', width:'100%', flexWrap:'wrap', }} >
-            <Grid item xs={6} md={3} >
+            <Grid item xs={6} md={5} >
             <Chip 
-            label='30 min'
+            label='Muscle Gun Therapy'
             avatar={<Avatar style={{backgroundColor: isEqualTo(thirty, massageCard.timeSelected )? thirdColor : ''}}>S</Avatar>} 
            // color={selected ? 'secondary': ''} 
             style={{
@@ -238,14 +286,15 @@ const Massages = () =>{
             onDelete={()=> true}
             />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} md={5} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
             <Chip
-            label='60 min'
+            label='Aroma Therapy'
             avatar={<Avatar style={{backgroundColor: isEqualTo(sixty, massageCard.timeSelected ) ? thirdColor : ''}}>S</Avatar>} 
             style={{
                 fontSize:18,
       //        marginRight: isGreaterThan(smallScreen, window.innerWidth) ? '5%' : 0,
       //        marginBottom: isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'
+                
             }}
             variant='outlined'
             onClick={()=>setMassageCard((prev)=>{
@@ -258,9 +307,9 @@ const Massages = () =>{
             onDelete={()=> true}
             />
             </Grid>
-            <Grid item xs={12} md={6} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
+            <Grid item xs={12} md={5} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? '5%' : '5%'}}>
             <Chip
-            label='90 min'
+            label='Advanced Muscle Therapy'
             avatar={<Avatar style={{backgroundColor: isEqualTo(ninety, massageCard.timeSelected ) ? thirdColor : ''}}>D</Avatar>} 
             style={{
                 fontSize:18,
@@ -277,62 +326,24 @@ const Massages = () =>{
             onDelete={()=> true}
             />
             </Grid>
-            <Grid item xs={6} md={3} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? '5%' : '5%'}}>
-            <Chip
-            label='120 min'
-            avatar={<Avatar style={{backgroundColor: isEqualTo(oneTwenty, massageCard.timeSelected ) ? thirdColor : ''}}>T</Avatar>} 
-            style={{
-              fontSize:18
-            }}
-            variant='outlined'
-            onClick={()=>setMassageCard((prev)=>{
-              return {
-                ...prev,
-                timeSelected: oneTwenty
-              }
-            })}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
-            />
-            </Grid>
           </Grid>
 
           <Card style={styles.card} raised>
             <CardHeader
                 avatar={
                     <Avatar style={{borderRadius:50, }}>
-                        T
+                        M
                     </Avatar>
                 }
-                title={<h2 style={{color:textColor}}>30 Minute Massage</h2>}
+                title={<h2 style={{color:textColor}}>Muscle Gun Therapy</h2>}
             />
+               <CardMedia
+                 image={massageGun}
+                 title="Paella dish"
+                 style={{height: 200, resizeMode:'contain'  }}
+               />
             <CardContent>
-                <List>
-                    <ListItem button divider style={{color:textColor, ...styles.listItemStyle}}>
-                      Swedish
-                      <ArrowForwardIosIcon
-                        color='secondary'
-                        style={{}}
-                      />
-                    </ListItem>  
-                    <ListItem button divider style={{color:textColor, ...styles.listItemStyle}}>
-                      Sports
-                      <ArrowForwardIosIcon
-                      />
-                    </ListItem>  
-                    
-                    <ListItem button divider style={{color:textColor, ...styles.listItemStyle}}>
-                      Deep Tissue
-                      <ArrowForwardIosIcon
-                      />
-                    </ListItem>  
-                    <ListItem button divider style={{color:textColor, ...styles.listItemStyle}}>
-                      Thai
-                      <ArrowForwardIosIcon
-                      />
-                    </ListItem>  
-
-                </List>
+                <p>Quickly sweep across your upper traps, palms, quads, hamstrings, and feet for 15 seconds each to help wake up the body and get blood flowing. </p>
             </CardContent>
             <CardActions>
                     <Button>See More</Button>
@@ -350,16 +361,19 @@ const Massages = () =>{
 }
 
 export const ContactForm = () => {
+  const history = useHistory()
+  const appContext = useContext(AppContext);
+  const {subtTitleText,bigPText,afterHeaderMargin,afterParagraphMargin, smallScreen,textColor} = appContext;
     return (
-     <Grid direction='column' justify='center' style={{padding:15, marginTop:60}}>
+     <Grid container  justify='center' style={{padding:15, marginTop:60}}>
       <Grid item xs={12} md={6}>
-       <Paper style={{backgroundColor:'rgba(200,200,200,.7)', padding:5, }}>
-         <Paper style={{padding:15, }}>
+         <Paper style={{padding:15, }} elevation={10}>
          <div style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
            <h1 style={{}} >Contact Me</h1>
            <Avatar
             src={person19}
-           />
+            onClick={()=>history.push('./boss')}
+            />
          </div>
         <Grid item container justify='space-between' direction='column' style={{padding:15}}>
          <Grid item style={{width:'100%',}} xs={12} md={6} >
@@ -407,14 +421,32 @@ export const ContactForm = () => {
             </TextField>
           </div>
             <TextField multiline variant='outlined' placeholder="Write something.." style={{}}></TextField >
-            <Button style={{...styles.ctaBtn,}}>Submit</Button>
+            <Button color='primary' variant='contained' style={{...styles.ctaBtn,}}>Submit</Button>
           </form>
          </Grid>
         </Grid>
         </Paper>
-        </Paper>
-        </Grid> 
-        <Grid item xs={12} style={{marginTop:70, borderLeft: '2px solid rgba(0,62,58,1)'}} justify='flex-end' >
+        </Grid>
+        <Grid item container xs={12} md={6} justify='center' alignItems='center'
+          style={{
+            marginTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '20%',
+          }}
+        >
+          <div style={{}}>
+            <h1 style={{textAlign:'center',}}>Travel Radius</h1>
+          </div>
+          <div style={{marginTop:afterHeaderMargin, height:'80%'}}>
+            <p style={{fontSize: 18, color:textColor }}>Will Travel within 10 mile Radius of the Kansas City Zoo</p>
+            <p style={{fontSize: bigPText, textAlign:'center', marginTop:afterHeaderMargin,}}>6800 Zoo Dr<br></br> Kansas City, MO 64132</p>
+            <Paper style={{height:'60%',marginTop:afterHeaderMargin,}}>Google Maps</Paper>
+          </div>
+        </Grid>
+        <Grid item xs={12} style={{
+          marginTop:isGreaterThan(smallScreen, window.innerWidth) ? '5%' : '40%',
+          borderLeft: '2px solid rgba(0,62,58,1)'
+        }} 
+          justify='flex-end' 
+        >
             <FacebookIcon
                 style={{fontSize:60, }}
             />
@@ -434,11 +466,34 @@ export const ContactForm = () => {
     )
 }
 
-
+const Reviews = () => {
+  return (
+    <Grid container style={{backgroundColor:'rgba(240,240,240,.5)', height:350, justifyContent:'center', alignItems:'center', marginTop:'10%'}}>
+      <Grid item xs={10} md={6}>
+        <Paper  style={{minHeight:200}}>
+          <Card style={{height:'100%'}}>
+          <CardHeader
+                avatar={
+                    <Avatar style={{borderRadius:50, border:'1px solid #003E3A'}}>
+                        <TwitterIcon/>
+                    </Avatar>
+                }
+                title={<h3 style={{color:'black'}}>Mikey Said</h3>}
+            />
+            <CardContent>
+            I stayed in town for a few days, looking for the best massage in Kansas City, I definitely found it!  Not from the area I am a bit nervous, but everything is great!  I am a hair stylist, with a lot of physical pain and pain, they are beyond my expectations, and getting rid of those still makes it a relaxing experience!  
+            </CardContent>
+          </Card>
+        </Paper>
+      </Grid>
+    </Grid>
+  )
+}
 
 const styles = {
     ctaBtn:{
-      backgroundColor:'rgba(90,0,0,.7)',
+     // backgroundColor:'rgba(90,0,0,.7)',
+  //   backgroundColor:'rgba(0, 62, 58, 1)',
       color:'white',
       marginTop:50,
       width:'40%',
@@ -449,12 +504,12 @@ const styles = {
     },
     card:{
         marginTop:30,
-        backgroundColor:'rgba(220,220,220,1)',
-    //    boxShadow:' rgb(255, 255, 255) 5px 5px 5px 0px, rgb(0, 0, 0) 4px 4px 15px 0px inset, 5px 5px 17px 11px rgba(0,0,0,0)',
+        backgroundColor:'rgba(100,100,100,1)',
+     //   backgroundColor: '#3f0d12',
+      //  backgroundImage: 'linear-gradient(315deg, #3f0d12 0%, #a71d31 74%)',
         borderRadius:10,
         width:'90%',  
-        minHeight:370,
-     //   border: '1px solid rgba(180,0,0,.2)'
+        minHeight:450,
     },
     input:{
      //   border:'none',
@@ -464,7 +519,13 @@ const styles = {
       display:'flex', 
       justifyContent:'space-between', 
       fontSize:24
-    }
+    },
+    linear:{
+    //   backgroundColor: '#d3d3d3',
+    //     backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, #7f8c8d 74%)',
+    },
+    
+
  }
 
  const useStyles = makeStyles({

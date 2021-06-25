@@ -5,11 +5,12 @@ import DehazeIcon from '@material-ui/icons/Dehaze';
 import AppContext from './context/appContext';
 import Modal from './Modal';
 import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 
 
 const TopNav = () => {
-
+    const history = useHistory();
     const appContext = useContext(AppContext);
     const {modalVisible, setModalVisible} = appContext;
     const [outline, setOutline] = useState({})
@@ -19,7 +20,8 @@ const TopNav = () => {
     return (
         <Paper style={styles.mainContainer}>
             <Grid container style={{justifyContent:'space-between',alignItems:'center' }}>
-                <Grid item direction='column' style={{}} xs={6}>
+                <Grid item direction='column' style={{}} xs={6} onClick={()=>history.push('/')}
+>
                     <h1 style={{marginBottom:3, paddingLeft:'5%'}}>Home Therapy</h1>
                 </Grid>
                 <Grid item style={{paddingRight:'5%', justifyContent:'flex-end', display:'flex'}} xs={6}>
@@ -63,8 +65,9 @@ const styles ={
         width:'100%',
         minHeight: 100,
         display:'flex',
+     //   backgroundColor: '#3f0d12',
+     //  backgroundImage: 'linear-gradient(315deg, #3f0d12 0%, #a71d31 74%)',
         backgroundColor:'rgba(250,250,250,.8)',
-        //    backgroundColor:'rgba(30,30,30,.5)',
         flex:1,
         alignItems:'center',
         justifyContent:'center',
