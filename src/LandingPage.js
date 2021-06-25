@@ -521,8 +521,8 @@ const styles = {
       fontSize:24
     },
     linear:{
-    //   backgroundColor: '#d3d3d3',
-    //     backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, #7f8c8d 74%)',
+       backgroundColor: '#d3d3d3',
+       backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, #7f8c8d 74%)',
     },
     
 
