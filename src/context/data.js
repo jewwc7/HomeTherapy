@@ -2,7 +2,7 @@
 const massageArr = [
   {  
     title:'Swedish',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus scelerisque volutpat sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rutrum felis sit amet hendrerit lacinia. Duis sagittis rutrum nulla, vel vehicula libero pretium a. Nunc maximus libero sed odio feugiat, vel lobortis justo laoreet.' ,
+    description: 'A Swedish massage is designed to relax the entire body by rubbing the muscles in long, gliding strokes in the direction of blood returning to the heart. But the benefits of Swedish massage go beyond relaxation. It can help increase the level of oxygen in the blood and improve circulation and flexibility.',
     prices:[
       {
         30:60 ,
@@ -17,7 +17,9 @@ const massageArr = [
   },
   {  
   title:'Deep Tissue',
-  description:'Duis pulvinar lobortis viverra. Sed et venenatis mauris, sollicitudin semper justo. Nam rutrum tortor blandit justo ultrices, sit amet efficitur turpis elementum. Vivamus lacinia est justo, nec porta urna imperdiet ac. Integer enim massa, commodo ornare risus ut, mollis cursus urna. Suspendisse mattis urna ut massa laoreet lobortis. Sed placerat facilisis sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae',
+  description:'Deep tissue massage is a massage technique thats mainly used to treat musculoskeletal issues, such as strains and sports injuries. It involves applying sustained pressure using slow, deep strokes to target the inner layers of your muscles and connective tissues.',
+
+
   prices:[
     {
       30:60 ,
@@ -35,7 +37,7 @@ const massageArr = [
   },
   {  
   title:'Sports Massage',
-  description:'Duis pulvinar lobortis viverra. Sed et venenatis mauris,  Nam rutrum tortor blandit justo ultrices, sit amet efficitur turpis elementum. Vivamus lacinia est justo, nec porta urna imperdiet ac. Integer enim massa, commodo ornare risus ut, mollis cursus urna. Suspendisse mattis urna ut massa laoreet lobortis. Sed placerat facilisis sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae',
+  description:'Image result for sports massage description Sports massage is manual manipulation of the muscles geared specifically toward helping people who have physically demanding lifestyles and/or hobbies. This kind of therapeutic massage considers the impact of certain activities on specific joints, muscle groups, tendons, ligaments, and soft tissue groups.',
   prices:[
     {
       90:120 ,

@@ -61,13 +61,26 @@ function App() {
 const theme = createMuiTheme({
   palette:{
         primary:{
-          main:'rgba(90,0,0,.7)',
-        //  contrastText: "yellow",
+          main:'rgba(3,7,30,1)',
         },
         secondary:{
           main:'#003E3A'
         },
+        
     },
+  overrides:{
+    MuiButton:{
+      text: {
+        color:'rgba(255,255,255,1)'
+      }
+    },
+    MuiChip:{
+      root:{
+        backgroundColor:'white',
+        color:'white'
+      }
+    }
+  }
     
 })
 const useStyles = makeStyles({

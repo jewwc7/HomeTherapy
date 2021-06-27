@@ -1,9 +1,11 @@
 import React, {useContext, useState} from 'react'
 import AppContext from './context/appContext';
-import {Grid, Button, Snackbar, Image, ButtonGroup, Avatar, TextField, MenuItem, List, ListItem,Chip,Paper,Fade, Slide} from '@material-ui/core';
+import {Grid, Button, Snackbar, Image, ButtonGroup, Avatar, TextField, MenuItem, List, ListItem,Chip,Paper,Fade, Slide, Hidden} from '@material-ui/core';
 import {Card, CardActions, CardContent, CardHeader, CardActionArea, CardMedia} from '@material-ui/core/';
 import {makeStyles,} from "@material-ui/core/styles";
 import person19 from './Photos/person19.jpg'
+import massage4 from './Photos/massage4.jpg';
+import massage1 from './Photos/massage1.jpg'
 import massageGun from './Photos/massageGun.jpg'
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -13,6 +15,8 @@ import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import myFunctions from './MyFunctions2';
 import { useHistory } from 'react-router-dom';
 const {isEqualTo, isGreaterThan} = myFunctions;
+
+const chipColor = 'white'
 
 //use this so I can refernce object value instead of strings. Change in one place affects all which is great
 const massageTypes = {
@@ -66,7 +70,7 @@ const LandingPage = (props) => {
 
                       }}
                       >
-                          Mobile Massuese
+                          Mobile Therapist
                     </h1>
                     <p style={{width:320, marginTop:afterHeaderMargin, lineHeight: lineHeight }}>Want a break from the daily grind? CityTouch Licensed Massage Therapy’s broad range of massage therapies offers result-driven massage to improve your health. Our massage therapists are licensed and insured by New York State and are regularly measured on high standards of quality assurance—ensuring a safe, positive, and beneficial experience for our clients.</p>
                     </Grid>  
@@ -101,6 +105,8 @@ const LandingPage = (props) => {
 }
 
 const Massages = () =>{
+  const classes = useStyles()
+
     const appContext = useContext(AppContext);
     const [massageCard, setMassageCard] = useState({massageSelected:null, timeSelected:null})
     const {lineHeight, afterHeaderMargin, mainSectionMargin,smallScreen,textColor,thirdColor, dispatch,currentState,clickableChip} = appContext;
@@ -126,72 +132,90 @@ const Massages = () =>{
  
     return (
       <Grid container direction='row' style={{padding:15, marginTop:mainSectionMargin, ...styles.linear  }} justify='space-between' >
-        <Grid item direction='column' xs={12} md={6}>
-          <h1 style={{ }}>Massages</h1>
-          <Grid container item style={{marginTop:afterHeaderMargin, display:'flex', width:'100%', flexWrap:'wrap', }} >
-            <Grid item xs={6} md={3} >
+        <Grid item container xs={12} md={6} 
+          style={{
+            position:'relative', 
+            height:isGreaterThan(smallScreen, window.innerWidth) ? 400: 500
+        }}
+        >
+          <Paper elevation={5} 
+            style={{
+              width:'100%', 
+              height:'100%'
+            }}
+          >
+          <img 
+            src={massage4} 
+            alt='back massage'
+            resizeMode='center'
+            style={{
+              width:'100%', 
+              height:'100%',
+              backgroundColor:'rgba(0,0,0,.4)',
+           //   paddingTop: isGreaterThan(smallScreen, window.innerWidth) ? 0 : 60,
+
+            }}
+            />
+            </Paper>
+            <div style={{position:'absolute', display:'flex', justifyContent:'center', alignItems:'center', backgroundColor:'rgba(20,10,10,.4)', width:'100%', height:isGreaterThan(smallScreen, window.innerWidth) ? '100%' : 500}}>
+              <h2 style={{textAlign:'center', color:'white', fontSize:54}}>Massages</h2>
+              <ArrowRightAltIcon
+                style={{color:'white', fontSize:30}}
+              />
+            </div>
+        </Grid>
+                 <Grid container item direction='column' xs={12} md={5}  style={{justifyCOntent:'center', paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '8%'}} >
+          <Grid container spacing={2} item style={{ display:'flex', width:'100%', flexWrap:'wrap', }} >
+            <Grid item xs={5} lg={3} style={{alignSelf:'center'}} >
             <Chip 
             label='Swedish'
             avatar={<Avatar style={{backgroundColor: isEqualTo(swedish, massageCard.massageSelected ) ? thirdColor : ''}}>S</Avatar>} 
             style={{
                 fontSize: 18,
-                backgroundColor: 'rgba(60,60,60,1)'
+                backgroundColor: chipColor,
+                color:'blue'
             }}
             variant='outlined'
             onClick={()=> setCardandMassage(swedish)}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
             />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={5} lg={3}>
             <Chip
             label= 'Sports'
             avatar={<Avatar style={{backgroundColor: isEqualTo(sports, massageCard.massageSelected ) ? thirdColor : ''}}>S</Avatar>} 
             style={{
                 fontSize:18,
+                backgroundColor: chipColor,
             }}
             variant='outlined'
             onClick={()=> setCardandMassage(sports)}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
             />
             </Grid>
-            <Grid item xs={12} md={6} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
+            <Hidden mdDown>
+              <Grid item lg={5}></Grid>
+            </Hidden>
+            <Grid item xs={6} lg={6} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
             <Chip
             label= 'Deep Tissue'
             avatar={<Avatar style={{backgroundColor: isEqualTo(deepTissue, massageCard.massageSelected ) ? 'rgba(200,100,100,1)' : ''}}>D</Avatar>} 
             style={{
                 fontSize:18,
-         //     marginRight: isGreaterThan(smallScreen, window.innerWidth) ? '5%' : 0,
+                backgroundColor: chipColor,
             }}
             variant='outlined'
             onClick={()=> setCardandMassage(deepTissue)}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
-            />
-            </Grid>
-            <Grid item xs={6} md={3} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? '5%' : '5%'}}>
-            <Chip
-            label= 'Thai'
-            avatar={<Avatar style={{backgroundColor: isEqualTo(thai, massageCard.massageSelected ) ? thirdColor : ''}}>T</Avatar>} 
-            style={{
-              fontSize:18
-            }}
-            variant='outlined'
-            onClick={()=> setCardandMassage(thai)}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
             />
             </Grid>
           </Grid>
-          <Card style={styles.card} raised>
+          <Card style={styles.card} >
             <CardHeader
                 avatar={
                     <Avatar style={{borderRadius:50, border:'1px solid #003E3A'}}>
                         K
                     </Avatar>
                 }
-                title={<h2 style={{color:textColor}}>{currentState.selectedMassage.title}</h2>}
+                title={<h2 style={{color:'white'}}>{currentState.selectedMassage.title}</h2>}
+                style={{backgroundColor:'rgba(90,0,0,1)'}}
             />
             <CardContent style={{display:'flex', justifyContent:'space-between', width:'60%'}}>
               <Chip
@@ -200,7 +224,7 @@ const Massages = () =>{
                 disabled={currentState.selectedMassage.prices[0].hasOwnProperty(30) ? false : true   }
                 clickable={currentState.selectedMassage.prices[0].hasOwnProperty(30) ? true : false   }
                 style={{
-                  backgroundColor: currentState.selectedMassage.prices[0].hasOwnProperty(30) ? clickableChip :null
+                  backgroundColor: currentState.selectedMassage.prices[0].hasOwnProperty(30) ? clickableChip :null,
                 }}
 
               />
@@ -242,6 +266,7 @@ const Massages = () =>{
             <CardActions>
                     <Button
                       onClick={()=>goSingleMassagePage(currentState.selectedMassage.title, '/massage' )}
+                      endIcon={<ArrowRightAltIcon/>}
                     >
                       See More
                     </Button>
@@ -255,26 +280,59 @@ const Massages = () =>{
             </CardActions>
           </Card>
         </Grid>
+        <Grid item container xs={12} md={6} 
+           style={{
+             position:'relative', 
+             marginTop:isGreaterThan(smallScreen, window.innerWidth) ? '2%': '10%',
+             height:isGreaterThan(smallScreen, window.innerWidth) ? 650: 500
+
+            }}
+        >
+            <Paper elevation={5} 
+            style={{
+              width:'100%', 
+              height:'100%'
+            }}
+            >
+          <img 
+            src={massage1} 
+            alt='back massage'
+           // resizeMode='center'
+            style={{
+              width:'100%', 
+              height:'100%',
+            //  paddingTop: isGreaterThan(smallScreen, window.innerWidth) ? 0 : 60,
+
+            }}
+            />
+            </Paper>
+            <div style={{position:'absolute', display:'flex', justifyContent:'center', alignItems:'center', backgroundColor:'rgba(20,10,10,.4)', width:'100%', height:'100%'}}>
+              <h2 style={{textAlign:'center', color:'white', fontSize:isGreaterThan(smallScreen, window.innerWidth) ? 54: 36}}>
+              Enhancements
+              </h2>
+              <ArrowRightAltIcon
+                style={{color:'white', fontSize:30}}
+              />
+            </div>
+        </Grid>
         <Grid 
           item 
-          direction='column' 
+     //     direction='column' 
           xs={12} 
-          md={6}
+          md={5}
           style={{                   
-             paddingTop: isGreaterThan(smallScreen, window.innerWidth) ? 0 : 60
+             paddingTop: isGreaterThan(smallScreen, window.innerWidth) ? '10%' : '5%',
           }}
           >
-            <h1 style={{}}>EnhanceMents</h1>
-            <Grid container item style={{marginTop:afterHeaderMargin, display:'flex', width:'100%', flexWrap:'wrap', }} >
-            <Grid item xs={6} md={5} >
+            <Grid container item spacing={2} style={{marginTop:afterHeaderMargin, display:'flex', width:'100%', flexWrap:'wrap', }} >
+            <Grid item xs={12} md={12} >
             <Chip 
             label='Muscle Gun Therapy'
             avatar={<Avatar style={{backgroundColor: isEqualTo(thirty, massageCard.timeSelected )? thirdColor : ''}}>S</Avatar>} 
            // color={selected ? 'secondary': ''} 
             style={{
-      //        marginRight: isGreaterThan(smallScreen, window.innerWidth) ? '5%' : 0,
-       //       marginBottom: isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'
-                fontSize: 18
+                fontSize: 18,
+                backgroundColor: chipColor,
             }}
             variant='outlined'
             onClick={()=>setMassageCard((prev)=>{
@@ -283,19 +341,15 @@ const Massages = () =>{
                 timeSelected: thirty
               }
             })}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
             />
             </Grid>
-            <Grid item xs={12} md={5} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
+            <Grid item xs={12} md={12} >
             <Chip
             label='Aroma Therapy'
             avatar={<Avatar style={{backgroundColor: isEqualTo(sixty, massageCard.timeSelected ) ? thirdColor : ''}}>S</Avatar>} 
             style={{
                 fontSize:18,
-      //        marginRight: isGreaterThan(smallScreen, window.innerWidth) ? '5%' : 0,
-      //        marginBottom: isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'
-                
+                backgroundColor: chipColor,
             }}
             variant='outlined'
             onClick={()=>setMassageCard((prev)=>{
@@ -304,17 +358,15 @@ const Massages = () =>{
                 timeSelected: sixty
               }
             })}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
             />
             </Grid>
-            <Grid item xs={12} md={5} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? '5%' : '5%'}}>
+            <Grid item xs={12} md={12}>
             <Chip
             label='Advanced Muscle Therapy'
             avatar={<Avatar style={{backgroundColor: isEqualTo(ninety, massageCard.timeSelected ) ? thirdColor : ''}}>D</Avatar>} 
             style={{
                 fontSize:18,
-         //     marginRight: isGreaterThan(smallScreen, window.innerWidth) ? '5%' : 0,
+                backgroundColor: chipColor,
             }}
             variant='outlined'
             onClick={()=>setMassageCard((prev)=>{
@@ -323,31 +375,30 @@ const Massages = () =>{
                 timeSelected: ninety
               }
             })}
-            deleteIcon={<ArrowRightAltIcon/>}
-            onDelete={()=> true}
             />
             </Grid>
           </Grid>
 
-          <Card style={styles.card} raised>
+          <Card style={styles.card} >
             <CardHeader
                 avatar={
                     <Avatar style={{borderRadius:50, }}>
                         M
                     </Avatar>
                 }
-                title={<h2 style={{color:textColor}}>Muscle Gun Therapy</h2>}
+                title={<h2 style={{color:'white'}}>Muscle Gun Therapy</h2>}
+                style={{backgroundColor:'rgba(90,0,0,1)'}}
+
             />
-               <CardMedia
-                 image={massageGun}
-                 title="Paella dish"
-                 style={{height: 200, resizeMode:'contain'  }}
-               />
-            <CardContent>
+             <CardContent>
                 <p>Quickly sweep across your upper traps, palms, quads, hamstrings, and feet for 15 seconds each to help wake up the body and get blood flowing. </p>
             </CardContent>
             <CardActions>
-                    <Button>See More</Button>
+                    <Button
+                      endIcon={<ArrowRightAltIcon/>}
+                    >
+                      See More
+                    </Button>
                     <Button
                       variant='contained'
                       color='primary'
@@ -469,7 +520,7 @@ export const ContactForm = () => {
 
 const Reviews = () => {
   return (
-    <Grid container style={{backgroundColor:'rgba(240,240,240,.5)', height:350, justifyContent:'center', alignItems:'center', marginTop:'10%'}}>
+    <Grid container style={{backgroundColor:'rgba(240,240,240,.5)', height:350, justifyContent:'center', alignItems:'center', marginTop:'3%'}}>
       <Grid item xs={10} md={6}>
         <Paper  style={{minHeight:200}}>
           <Card style={{height:'100%'}}>
@@ -495,7 +546,7 @@ const styles = {
     ctaBtn:{
      // backgroundColor:'rgba(90,0,0,.7)',
   //   backgroundColor:'rgba(0, 62, 58, 1)',
-      color:'white',
+  //    color:'white',
       marginTop:50,
       width:'40%',
     },
@@ -505,12 +556,12 @@ const styles = {
     },
     card:{
         marginTop:30,
-        backgroundColor:'rgba(100,100,100,1)',
-     //   backgroundColor: '#3f0d12',
+        backgroundColor:'rgba(250,250,250,1)',
+        //   backgroundColor: '#3f0d12',
       //  backgroundImage: 'linear-gradient(315deg, #3f0d12 0%, #a71d31 74%)',
         borderRadius:10,
         width:'90%',  
-        minHeight:450,
+        maxHeight:'90%',
     },
     input:{
      //   border:'none',
@@ -522,7 +573,7 @@ const styles = {
       fontSize:24
     },
     linear:{
-       backgroundColor: 'rgba(90,0,0,1)',
+      backgroundColor:'rgba(30,10,5,1)',
       // backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, rgba(90,0,0,.7) 74%)',
     },
  }
