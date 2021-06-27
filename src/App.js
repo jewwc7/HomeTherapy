@@ -61,12 +61,12 @@ function App() {
 const theme = createMuiTheme({
   palette:{
         primary:{
-          main:'rgba(3,7,30,1)',
+         // main:'rgba(3,7,30,1)',
+         main:'rgba(30,70,120,1)'
         },
         secondary:{
           main:'#003E3A'
         },
-        
     },
   overrides:{
     MuiButton:{

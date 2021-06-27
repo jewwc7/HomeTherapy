@@ -22,9 +22,9 @@ const AppState = (props) => {
     const lineHeight = 1.5;
     const afterHeaderMargin = 30;
     const afterParagraphMargin = 60;
-    const mainSectionMargin = 70;
+    const mainSectionMargin = 30;
     const ctaColor = 'rgba(90,0,0,1)';
-    const thirdColor = 'rgba(0, 62, 58, 1)';
+    const thirdColor = 'rgba(30,70,120,1)'; //blue main color
     const textColor = 'rgba(20,20,20,.8)';
     const subtTitleText = 10;
     const bigPText = 24;

@@ -17,6 +17,7 @@ import { useHistory } from 'react-router-dom';
 const {isEqualTo, isGreaterThan} = myFunctions;
 
 const chipColor = 'white'
+const cardHeaderColor = 'rgba(10,0,0,1)';
 
 //use this so I can refernce object value instead of strings. Change in one place affects all which is great
 const massageTypes = {
@@ -197,7 +198,7 @@ const Massages = () =>{
             <Grid item xs={6} lg={6} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
             <Chip
             label= 'Deep Tissue'
-            avatar={<Avatar style={{backgroundColor: isEqualTo(deepTissue, massageCard.massageSelected ) ? 'rgba(200,100,100,1)' : ''}}>D</Avatar>} 
+            avatar={<Avatar style={{backgroundColor: isEqualTo(deepTissue, massageCard.massageSelected ) ? thirdColor : ''}}>D</Avatar>} 
             style={{
                 fontSize:18,
                 backgroundColor: chipColor,
@@ -210,12 +211,12 @@ const Massages = () =>{
           <Card style={styles.card} >
             <CardHeader
                 avatar={
-                    <Avatar style={{borderRadius:50, border:'1px solid #003E3A'}}>
+                    <Avatar style={{}}>
                         K
                     </Avatar>
                 }
-                title={<h2 style={{color:'white'}}>{currentState.selectedMassage.title}</h2>}
-                style={{backgroundColor:'rgba(90,0,0,1)'}}
+                title={<h2 style={{color:cardHeaderColor}}>{currentState.selectedMassage.title}</h2>}
+                style={{}}
             />
             <CardContent style={{display:'flex', justifyContent:'space-between', width:'60%'}}>
               <Chip
@@ -386,8 +387,8 @@ const Massages = () =>{
                         M
                     </Avatar>
                 }
-                title={<h2 style={{color:'white'}}>Muscle Gun Therapy</h2>}
-                style={{backgroundColor:'rgba(90,0,0,1)'}}
+                title={<h2 style={{color:'black'}}>Muscle Gun Therapy</h2>}
+                style={{}}
 
             />
              <CardContent>
@@ -573,7 +574,7 @@ const styles = {
       fontSize:24
     },
     linear:{
-      backgroundColor:'rgba(30,10,5,1)',
+      backgroundColor:'rgba(65,0,0,.9)',
       // backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, rgba(90,0,0,.7) 74%)',
     },
  }
