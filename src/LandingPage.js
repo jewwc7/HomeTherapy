@@ -1,11 +1,13 @@
 import React, {useContext, useState} from 'react'
 import AppContext from './context/appContext';
+import {NewBoss} from './Boss'
 import {Grid, Button, Snackbar, Image, ButtonGroup, Avatar, TextField, MenuItem, List, ListItem,Chip,Paper,Fade, Slide, Hidden} from '@material-ui/core';
 import {Card, CardActions, CardContent, CardHeader, CardActionArea, CardMedia} from '@material-ui/core/';
 import {makeStyles,} from "@material-ui/core/styles";
 import person19 from './Photos/person19.jpg'
 import massage4 from './Photos/massage4.jpg';
-import massage1 from './Photos/massage1.jpg'
+import massage1 from './Photos/massage1.jpg';
+import massage2 from './Photos/massage2.jpg'
 import massageGun from './Photos/massageGun.jpg'
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -45,7 +47,7 @@ const LandingPage = (props) => {
               <Slide in mountOnEnter direction='up' timeout={{ appear: 300, enter: 600,  }}>
                 <Grid item direction='column' xs={12} md={6} style={{}}>
                   <Paper style={{}}>
-                  <img {...props} src={person19} alt='Owner' style={{maxHeight:500, width:'100%', }}></img>
+                  <img {...props} src={massage2} alt='Owner' style={{maxHeight:500, width:'100%', }}></img>
                   <Paper style={{padding:'2%', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                     <h2>Sarah</h2>
                     <div>
@@ -99,6 +101,7 @@ const LandingPage = (props) => {
                 </Grid>
             </Grid>
             <Massages/>
+            <NewBoss/>
             <Reviews/>
             <ContactForm/>
         </div>
@@ -167,7 +170,7 @@ const Massages = () =>{
         </Grid>
                  <Grid container item direction='column' xs={12} md={5}  style={{justifyCOntent:'center', paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '8%'}} >
           <Grid container spacing={2} item style={{ display:'flex', width:'100%', flexWrap:'wrap', }} >
-            <Grid item xs={5} lg={3} style={{alignSelf:'center'}} >
+            <Grid item xs={12} style={{alignSelf:'center'}} >
             <Chip 
             label='Swedish'
             avatar={<Avatar style={{backgroundColor: isEqualTo(swedish, massageCard.massageSelected ) ? thirdColor : ''}}>S</Avatar>} 
@@ -180,7 +183,7 @@ const Massages = () =>{
             onClick={()=> setCardandMassage(swedish)}
             />
             </Grid>
-            <Grid item xs={5} lg={3}>
+            <Grid item xs={12} >
             <Chip
             label= 'Sports'
             avatar={<Avatar style={{backgroundColor: isEqualTo(sports, massageCard.massageSelected ) ? thirdColor : ''}}>S</Avatar>} 
@@ -192,10 +195,7 @@ const Massages = () =>{
             onClick={()=> setCardandMassage(sports)}
             />
             </Grid>
-            <Hidden mdDown>
-              <Grid item lg={5}></Grid>
-            </Hidden>
-            <Grid item xs={6} lg={6} style={{paddingTop:isGreaterThan(smallScreen, window.innerWidth) ? 0 : '5%'}}>
+            <Grid item xs={12}  style={{}}>
             <Chip
             label= 'Deep Tissue'
             avatar={<Avatar style={{backgroundColor: isEqualTo(deepTissue, massageCard.massageSelected ) ? thirdColor : ''}}>D</Avatar>} 
@@ -521,23 +521,32 @@ export const ContactForm = () => {
 
 const Reviews = () => {
   return (
-    <Grid container style={{backgroundColor:'rgba(240,240,240,.5)', height:350, justifyContent:'center', alignItems:'center', marginTop:'3%'}}>
+    <Grid container style={{...styles.linearReview, height:350, justifyContent:'center', alignItems:'center', marginTop:'3%'}}>
       <Grid item xs={10} md={6}>
-        <Paper  style={{minHeight:200}}>
-          <Card style={{height:'100%'}}>
+          <Card style={{minHeight:200}} raised>
           <CardHeader
                 avatar={
                     <Avatar style={{borderRadius:50, border:'1px solid #003E3A'}}>
                         <TwitterIcon/>
                     </Avatar>
                 }
-                title={<h3 style={{color:'black'}}>Mikey Said</h3>}
+                title={
+                <div style={{display:'flex', justifyContent:'space-between'}}>
+                  <h3 style={{color:'black'}}>Mikey Said</h3>
+                <div>
+                  <Button
+                     endIcon={<ArrowRightAltIcon/>}
+                  >
+                    Next review
+                   </Button>
+                </div>
+                </div>
+              }
             />
             <CardContent>
             I stayed in town for a few days, looking for the best massage in Kansas City, I definitely found it!  Not from the area I am a bit nervous, but everything is great!  I am a hair stylist, with a lot of physical pain and pain, they are beyond my expectations, and getting rid of those still makes it a relaxing experience!  
             </CardContent>
           </Card>
-        </Paper>
       </Grid>
     </Grid>
   )
@@ -577,6 +586,12 @@ const styles = {
       backgroundColor:'rgba(65,0,0,.9)',
       // backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, rgba(90,0,0,.7) 74%)',
     },
+    linearReview:{
+    //  backgroundColor:'rgba(255,255,255,1)',
+    //  backgroundImage: 'linear-gradient(3150deg,  rgba(50,50,50,.7) 0%,  rgba(66,0,0,.7) 74%)',
+    backgroundColor:'rgba(65,0,0,.9)',
+
+    }
  }
 
  const useStyles = makeStyles({

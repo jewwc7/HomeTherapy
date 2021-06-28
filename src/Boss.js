@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 import AppContext from './context/appContext';
-import {Grid, Button, Snackbar, Image, ButtonGroup, Avatar, TextField, MenuItem, List, ListItem ,Paper} from '@material-ui/core';
+import {Grid, Button, Snackbar, Image, ButtonGroup, Avatar, TextField, MenuItem, List, ListItem, ListItemAvatar, ListItemText ,Paper} from '@material-ui/core';
 import {Card, CardActions, CardContent, CardHeader, CardActionArea} from '@material-ui/core/';
 import {makeStyles, ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
@@ -15,6 +15,8 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import PinterestIcon from '@material-ui/icons/Pinterest';
 import myFunctions from './MyFunctions2';
 const {isEqualTo, isGreaterThan} = myFunctions;
+
+const qualifications = ['Won Gold Medal', 'Completed Bachelors Degree', 'Was on American Idol']
 
 const Boss = () => {
 
@@ -95,6 +97,61 @@ const Boss = () => {
     )
 }
 
+export const NewBoss = () => {
+    return (
+        <Grid container style={styles.newBossContainer} justify='space-evenly' alignItems='center'>
+            <Grid item container xs={12} lg={5}
+                style={{position:'relative', height:500}}
+            >
+                <img src={person19} alt='Boss' style={{width:'100%', height:'100%'}}/>
+                <div style={{position:'absolute', display:'flex', justifyContent:'center', alignItems:'center', backgroundColor:'rgba(20,10,10,.4)', width:'100%', height:'100%'}}>
+                  <h2 style={{textAlign:'center', color:'white', fontSize: 54}}>
+                    About me
+                  </h2>
+                </div>
+            </Grid>
+            <Grid item container xs={12} spacing={2} lg={6} >
+                <Grid item xs={12}>
+                    <Paper style={{minHeight:225, width:'100%',display:'flex', flexDirection:'column', justifyContent:'space-evenly',...styles.linearBio}}>
+                        <h2 style={{textAlign:'center'}}>Bio</h2>
+                        <div style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%', }}>
+                          <p style={{width:'80%', alignSelf:'center'}}>Being born and raised in a small town near Zurich, Switzerland taught me the importance of being in touch with nature, as well as a balanced approach between finding privacy and caring for people around me. Last but not least, it has shown me how to lead a harmonious life, knowing that one person CAN make a difference.</p>
+                        </div>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} lg={6} style={{minHeight:400}}>
+                    <Paper style={{height:'80%', width:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', ...styles.linearQual }}>
+                        <h2>Qualifications</h2>
+                        <List>
+                           { qualifications.map( qualification=>{
+                               return (
+                                   <ListItem>
+                                       <ListItemText
+                                            primary={qualification}
+                                            style={{textAlign:'center'}}
+                                        />
+                                   </ListItem>
+                               )
+                            })
+                        }
+                        </List>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} lg={6}>
+                    <Paper style={{minHeight:390, width:'100%', display:'flex', alignItems:'center',flexDirection:'column', justifyContent:'center' ,...styles.linear}}>
+                      <h2 style={{textAlign:'center'}}>Why I Love Massage</h2>
+                      <div style={{display:'flex', justifyContent:'center', alignItems:'flex-end', height:'100%', marginTop:'5%' }}>
+                        <p style={{textAlign:'left', width:'80%'}}>As a team and each therapist individually we take full responsibility for whatever is going on in your body and by giving the best hands on massage with all the medical knowledge and aspects of it or simply a relaxing Swedish massage we send unconditional love to the problem that you share with us and clean the replayed memories that interfere with our ability to connect to a place of zero and release all replayed memories from our minds.</p>
+                      </div>
+                    </Paper>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    )
+}
+
+
 const styles = {
     card:{
         marginTop:30,
@@ -111,8 +168,20 @@ const styles = {
     //   width:'200%'
     },
     linear:{
-        backgroundColor: '#d3d3d3',
-          backgroundImage: 'linear-gradient(315deg, #d3d3d3 0%, #7f8c8d 74%)',
-     }
+        backgroundImage: 'linear-gradient(315deg,  rgba(100,100,100,.7) 0%,  #d3d3d3 74%)',
+     },
+     linearBio:{
+       
+     },
+     linearQual:{
+        backgroundImage: 'linear-gradient(315deg,  rgba(100,100,100,.7) 0%,  #d3d3d3 74%)',
+     },
+     newBossContainer:{
+        marginTop:'3%', 
+        backgroundColor:'rgba(20,20,20,.1)',
+        minHeight:700,
+        width:'100%',
+        padding:15
+     },
 }
 export default Boss
