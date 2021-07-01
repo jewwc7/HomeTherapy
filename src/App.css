@@ -10,3 +10,18 @@
 .massages:hover {
   /* transform: scale(1.04); */
 }
+
+.alert-enter {
+  transform: translateX(-100%);
+}
+.alert-enter-active {
+  transform: translateX(0%);
+  transition: transform 300ms;
+}
+.alert-exit {
+  transform: translateX(0%);
+}
+.alert-exit-active {
+  transform: translateX(100%);
+  transition: transform 300ms;
+}

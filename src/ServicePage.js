@@ -21,115 +21,6 @@ import myFunctions from "./MyFunctions2";
 const { isEqualTo, isGreaterThan } = myFunctions;
 
 const ServicePage = () => {
-  useEffect(() => {
-    setModalVisible(false);
-  }, []);
-  const appContext = useContext(AppContext);
-  const {
-    lineHeight,
-    currentState,
-    afterHeaderMargin,
-    setModalVisible,
-    dispatch,
-    smallScreen,
-  } = appContext;
-  const { massages } = currentState;
-  const [hover, setHover] = useState(null);
-
-  return (
-    <Grid container style={{ marginBottom: 24 }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          width: "100%",
-          marginTop: 60,
-        }}
-      >
-        <div>
-          {" "}
-          <h1
-            style={{
-              fontSize: 60,
-              textAlign: isGreaterThan(smallScreen, window.innerWidth)
-                ? "left"
-                : "center",
-            }}
-          >
-            Services
-          </h1>
-        </div>
-        <div
-          style={{
-            marginBottom: 30,
-            marginTop: afterHeaderMargin,
-            marginLeft: 40,
-          }}
-        >
-          {massages.map((massage, index) => {
-            const { title, description } = massage;
-            return (
-              <Card
-                style={{
-                  ...styles.card,
-                  ...{
-                    transform: hover === index ? "scale(1.04)" : "scale(.95)",
-                  },
-                  ...{
-                    backgroundColor:
-                      hover === index
-                        ? "rgba(100,100,100,.7)"
-                        : "rgba(220,220,220,1)",
-                  },
-                }}
-                raised
-                onMouseOver={() => setHover(index)}
-                onMouseOut={() => setHover(null)}
-              >
-                <CardHeader
-                  avatar={
-                    <Avatar style={{ borderRadius: 50 }}>
-                      {title.charAt(0)}
-                    </Avatar>
-                  }
-                  title={<h2>{title}</h2>}
-                />
-                <CardContent>
-                  <p style={{ lineHeight: lineHeight }}>{description}</p>
-                </CardContent>
-                <CardActions>
-                  <Link to="/massage">
-                    <Button
-                      onClick={() =>
-                        dispatch({
-                          type: "Select Massage",
-                          payload: title,
-                        })
-                      }
-                    >
-                      See More
-                    </Button>
-                  </Link>
-                  <Button
-                    variant="contained"
-                    // style={{backgroundColor:'rgba(90,0,0,.7)'}}
-                    color="primary"
-                  >
-                    Book Now
-                  </Button>
-                </CardActions>
-              </Card>
-            );
-          })}
-        </div>
-      </div>
-      <NewServicePage />
-    </Grid>
-  );
-};
-
-const NewServicePage = () => {
   const appContext = useContext(AppContext);
   const [hover, setHover] = useState(null);
 
@@ -148,15 +39,17 @@ const NewServicePage = () => {
       container
       direction="row"
       className="massages"
+      spacing={smallScreen ? 1 : null}
       style={{
-        pading: 16,
+        padding: 16,
         width: "100%",
         border: smallScreen ? null : ".5px solid black",
+        backgroundColor: "rgba(20,20,20,.1)",
       }}
       onMouseOver={() => setHover(1)}
       onMouseOut={() => setHover(null)}
     >
-      <Grid item container style={{ position: "relative" }} lg={2}>
+      <Grid item container style={{ position: "relative" }} xs={12} md={2}>
         <Paper
           elevation={5}
           style={{
@@ -183,6 +76,7 @@ const NewServicePage = () => {
             backgroundColor: "rgba(20,10,10,.4)",
             width: smallScreen ? "100% " : 200,
             height: smallScreen ? 400 : "100%",
+            //  right: smallScreen ? 4 : null,
           }}
         >
           <h2 style={{ textAlign: "center", color: "white", fontSize: 34 }}>
@@ -190,7 +84,7 @@ const NewServicePage = () => {
           </h2>
         </div>
       </Grid>
-      <Grid item container lg={2}>
+      <Grid item container xs={12} md={2}>
         <Paper
           style={{
             width: smallScreen ? "100%" : 200,
@@ -215,7 +109,7 @@ const NewServicePage = () => {
           </div>
         </Paper>
       </Grid>
-      <Grid item container lg={2}>
+      <Grid item container xs={12} md={2}>
         <Paper
           style={{
             width: smallScreen ? "100%" : 200,
@@ -239,7 +133,7 @@ const NewServicePage = () => {
           </p>
         </Paper>
       </Grid>
-      <Grid item container lg={4}>
+      <Grid item container xs={12} md={4}>
         <Paper style={{ padding: 16 }}>
           <h2 style={{ textAlign: "center" }}>Technique</h2>
           <p style={{ marginTop: 24, lineHeight: lineHeight }}>
@@ -253,7 +147,8 @@ const NewServicePage = () => {
       <Grid
         item
         container
-        lg={2}
+        xs={12}
+        md={2}
         alignItems="center"
         justify="center"
         style={{ marginBottom: 24, marginTop: 24 }}

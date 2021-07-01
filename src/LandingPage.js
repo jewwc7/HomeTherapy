@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import AppContext from "./context/appContext";
 import { NewBoss } from "./Boss";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
+
 import {
   Grid,
   Button,
@@ -88,24 +90,6 @@ const LandingPage = (props) => {
                 alt="Owner"
                 style={{ maxHeight: 500, width: "100%" }}
               />
-              <Paper
-                style={{
-                  padding: "2%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <h2>Sarah</h2>
-                <div>
-                  <Button
-                    endIcon={<ArrowRightAltIcon />}
-                    onClick={() => history.push("./boss")}
-                  >
-                    Meet Sarah
-                  </Button>
-                </div>
-              </Paper>
             </Paper>
           </Grid>
         </Slide>
@@ -185,6 +169,7 @@ const Massages = () => {
     massageSelected: null,
     timeSelected: null,
   });
+  const [animation, setAnimation] = useState(true);
   const {
     lineHeight,
     afterHeaderMargin,
@@ -460,9 +445,19 @@ const Massages = () => {
               }}
             />
           </CardContent>
-          <CardContent style={{ lineHeight: lineHeight, color: textColor }}>
-            {currentState.selectedMassage.description}
-          </CardContent>
+          <SwitchTransition mode="out-in">
+            <CSSTransition
+              classNames="alert"
+              key={currentState.selectedMassage.description}
+              addEndListener={(node, done) => {
+                node.addEventListener("transitionend", done, false);
+              }}
+            >
+              <CardContent style={{ lineHeight: lineHeight, color: textColor }}>
+                {currentState.selectedMassage.description}
+              </CardContent>
+            </CSSTransition>
+          </SwitchTransition>
           <CardActions>
             <Button
               onClick={() =>
