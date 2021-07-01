@@ -25,3 +25,18 @@
   transform: translateX(100%);
   transition: transform 300ms;
 }
+
+.review-enter {
+  transform: translateY(-100%);
+}
+.review-enter-active {
+  transform: translateY(0%);
+  transition: transform 300ms;
+}
+.review-exit {
+  transform: translateY(0%);
+}
+.review-exit-active {
+  transform: translateY(100%);
+  transition: transform 300ms;
+}
