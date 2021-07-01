@@ -165,11 +165,20 @@ const Massages = () => {
   const classes = useStyles();
 
   const appContext = useContext(AppContext);
+  const {
+    swedish,
+    deepTissue,
+    sports,
+    thai,
+    thirty,
+    sixty,
+    ninety,
+    oneTwenty,
+  } = massageTypes;
   const [massageCard, setMassageCard] = useState({
-    massageSelected: null,
+    massageSelected: sports,
     timeSelected: null,
   });
-  const [animation, setAnimation] = useState(true);
   const {
     lineHeight,
     afterHeaderMargin,
@@ -181,16 +190,7 @@ const Massages = () => {
     currentState,
     clickableChip,
   } = appContext;
-  const {
-    swedish,
-    deepTissue,
-    sports,
-    thai,
-    thirty,
-    sixty,
-    ninety,
-    oneTwenty,
-  } = massageTypes;
+
   const history = useHistory();
   function setCardandMassage(massage) {
     setMassageCard((prev) => {
@@ -449,6 +449,7 @@ const Massages = () => {
             <CSSTransition
               classNames="alert"
               key={currentState.selectedMassage.description}
+              //this is needed if timeout not provided. If timeout provided I beleive it will run the timeouts instead of the css
               addEndListener={(node, done) => {
                 node.addEventListener("transitionend", done, false);
               }}
@@ -800,6 +801,39 @@ export const ContactForm = () => {
 };
 
 const Reviews = () => {
+  const reviewsArr = [
+    {
+      name: "Mikey",
+      review:
+        " I stayed in town for a few days, looking for the best massage in       Kansas City, I definitely found it! Not from the area I am a bit   nervous, but everything is great! I am a hair stylist, with a      lot of physical pain and pain, they are beyond my expectations,    and getting rid of those still makes it a relaxing experience!",
+    },
+    {
+      name: "James",
+      review:
+        "I stayed in town for a few days, looking for the best massage in Kansas City, I definitely found it! Not from the area I am a bit  nervous, but everything is great!",
+    },
+    {
+      name: "Jenny",
+      review:
+        " I stayed in town for a few days,        Kansas City, I definitely found it! Not from the area I am a bit   nervous, but everything is great! I am a hair stylist, with a      lot of physical pain and pain, they are beyond my expectations,    and getting rid of those still makes it a relaxing experience!",
+    },
+    {
+      name: "Jessica",
+      review:
+        "I definitely found it! Not from the area I am a bit   nervous, but everything is great! I am a hair stylist, with a      lot of physical pain and pain, they are beyond my expectations,    and getting rid of those still makes it a relaxing experience!",
+    },
+  ];
+
+  const [reviews, setReviews] = useState(reviewsArr);
+  const [reviewNum, setReviewNum] = useState(0);
+  function randomNum() {
+    if (reviewNum + 1 === reviews.length) {
+      setReviewNum(0);
+      return;
+    }
+    setReviewNum(reviewNum + 1);
+  }
+
   return (
     <Grid
       container
@@ -821,25 +855,31 @@ const Reviews = () => {
             }
             title={
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h3 style={{ color: "black" }}>Mikey Said</h3>
+                <h3 style={{ color: "black" }}>{reviews[reviewNum].name}</h3>
                 <div>
                   <Button
                     endIcon={<ArrowRightAltIcon />}
                     style={{ fontSize: 8 }}
+                    onClick={randomNum}
                   >
-                    Next review
+                    Next review {reviewNum + 1} / {reviewsArr.length}
                   </Button>
                 </div>
               </div>
             }
           />
-          <CardContent>
-            I stayed in town for a few days, looking for the best massage in
-            Kansas City, I definitely found it! Not from the area I am a bit
-            nervous, but everything is great! I am a hair stylist, with a lot of
-            physical pain and pain, they are beyond my expectations, and getting
-            rid of those still makes it a relaxing experience!
-          </CardContent>
+          <SwitchTransition mode="out-in">
+            <CSSTransition
+              classNames="review"
+              key={reviews[reviewNum].review}
+              //this is needed if timeout not provided. If timeout provided I beleive it will run the timeouts instead of the css
+              addEndListener={(node, done) => {
+                node.addEventListener("transitionend", done, false);
+              }}
+            >
+              <CardContent>{reviews[reviewNum].review}</CardContent>
+            </CSSTransition>
+          </SwitchTransition>
         </Card>
       </Grid>
     </Grid>
