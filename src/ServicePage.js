@@ -1,24 +1,25 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./App.css";
-
+import CustomChip from "./CustomChip";
 import AppContext from "./context/appContext";
 import massage4 from "./Photos/massage4.jpg";
-import { Grid, Button, Avatar, Paper, Divider } from "@material-ui/core";
 import {
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardActionArea,
-} from "@material-ui/core/";
-import {
-  makeStyles,
-  ThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+  Grid,
+  Button,
+  Avatar,
+  Paper,
+  Divider,
+  Hidden,
+  Chip,
+} from "@material-ui/core";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+
+import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import myFunctions from "./MyFunctions2";
 const { isEqualTo, isGreaterThan } = myFunctions;
+const chipColor = "white";
+const horizonalPadding = 24;
 
 const ServicePage = () => {
   const appContext = useContext(AppContext);
@@ -30,170 +31,232 @@ const ServicePage = () => {
     afterHeaderMargin,
     setModalVisible,
     dispatch,
+
     smallScreen,
   } = appContext;
+  const {
+    selectedMassage: { benefits },
+  } = currentState;
 
-  return (
-    <Grid
-      item
-      container
-      direction="row"
-      className="massages"
-      spacing={smallScreen ? 1 : null}
-      style={{
-        padding: 16,
-        width: "100%",
-        border: smallScreen ? null : ".5px solid black",
-        backgroundColor: "rgba(20,20,20,.1)",
-      }}
-      onMouseOver={() => setHover(1)}
-      onMouseOut={() => setHover(null)}
-    >
-      <Grid item container style={{ position: "relative" }} xs={12} md={2}>
-        <Paper
-          elevation={5}
-          style={{
-            width: smallScreen ? "100% " : 200,
-            height: smallScreen ? 400 : "100%",
-          }}
-        >
-          <img
-            src={massage4}
-            alt="back massage"
+  const massageChips = [
+    {
+      title: "Swedish",
+    },
+    {
+      title: "Sports",
+    },
+    {
+      title: "Deep TIssue",
+    },
+    {
+      title: "30 Minutes Refresher",
+    },
+  ];
+
+  const addOnChips = [
+    {
+      title: "Hot Towel",
+    },
+    {
+      title: "Full Body Stretching",
+    },
+    {
+      title: "Aroma Therapy",
+    },
+  ];
+
+  const prices = [
+    {
+      title: "60min/$75",
+    },
+    {
+      title: "90min/$100",
+    },
+    {
+      title: "120min/$140",
+    },
+  ];
+
+  const cardsDetails = [
+    {
+      title: "Swedish Massage",
+      prices: ["60min/$75", "90min/$100", "120min/$140"],
+      purpose: "string",
+      benefits: "string",
+    },
+    {
+      title: "Deep Tissue Massage",
+      prices: ["60min/$75", "90min/$100", "120min/$140"],
+      purpose: "string",
+      benefits: "string",
+    },
+    {
+      title: "Sports Massage",
+      prices: ["60min/$75", "90min/$100", "120min/$140"],
+      purpose: "string",
+      benefits: "string",
+    },
+    {
+      title: "30 Minute Refresher",
+      prices: ["60min/$75", "90min/$100", "120min/$140"],
+      purpose: "string",
+      benefits: "string",
+    },
+  ];
+  function showButtons(height = "100%", width = "100%") {
+    return massageChips.map((chip, index) => {
+      const { title } = chip;
+      return (
+        <Grid item container xs={12} md={3}>
+          <CustomChip title={title} width={width} height={height} />
+        </Grid>
+      );
+    });
+  }
+
+  function showChips() {
+    return addOnChips.map((chip, index) => {
+      const { title } = chip;
+      return (
+        <Grid item container xs={12} md={5}>
+          <CustomChip title={title} width="100%" />
+        </Grid>
+      );
+    });
+  }
+  function showPrices(height = "100%", width = "100%") {
+    return prices.map((chip, index) => {
+      const { title } = chip;
+      return (
+        <Grid item container xs={12} md={6}>
+          <CustomChip title={title} width={width} height={height} />
+        </Grid>
+      );
+    });
+  }
+
+  function showCards() {
+    return cardsDetails.map((card, index) => {
+      const { title } = card;
+      return (
+        <Grid item xs={12} md={5}>
+          <Paper
+            elevation={4}
             style={{
-              width: smallScreen ? "100% " : 200,
-              height: smallScreen ? 400 : "100%",
-              backgroundColor: "rgba(0,0,0,.4)",
-            }}
-          />
-        </Paper>
-        <div
-          style={{
-            position: "absolute",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(20,10,10,.4)",
-            width: smallScreen ? "100% " : 200,
-            height: smallScreen ? 400 : "100%",
-            //  right: smallScreen ? 4 : null,
-          }}
-        >
-          <h2 style={{ textAlign: "center", color: "white", fontSize: 34 }}>
-            Swedish
-          </h2>
-        </div>
-      </Grid>
-      <Grid item container xs={12} md={2}>
-        <Paper
-          style={{
-            width: smallScreen ? "100%" : 200,
-            height: "100%",
-            padding: 16,
-          }}
-        >
-          <h2 style={{ textAlign: "center" }}>Prices</h2>
-          <div
-            style={{
-              marginTop: 24,
-              lineHeight: lineHeight,
+              width: "100%",
+              maxHeight: "100%",
+              //  height: "100%",
               display: "flex",
               flexDirection: "column",
-              alignItems: smallScreen ? "center" : null,
+              padding: 24,
+              //   border: "1px solid black",
+              borderRadius: 20,
             }}
           >
-            <p>30min - $60</p>
-            <p>60min - $90</p>
-            <p>90min - $120</p>
-            <p>120min - $150</p>
-          </div>
-        </Paper>
-      </Grid>
-      <Grid item container xs={12} md={2}>
-        <Paper
-          style={{
-            width: smallScreen ? "100%" : 200,
-            height: "100%",
-            padding: 16,
-            alignItems: smallScreen ? "center" : null,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <h2 style={{ textAlign: "center" }}>Benefits</h2>
-          <p
-            style={{
-              marginTop: 24,
-              lineHeight: lineHeight,
-              textAlign: smallScreen ? "center" : null,
-            }}
-          >
-            1. Muscle Relaxation <br></br>2. Injury Prevention <br></br>3. Heals
-            Joint Pain <br></br>4. Improved Blood Circulation
-          </p>
-        </Paper>
-      </Grid>
-      <Grid item container xs={12} md={4}>
-        <Paper style={{ padding: 16 }}>
-          <h2 style={{ textAlign: "center" }}>Technique</h2>
-          <p style={{ marginTop: 24, lineHeight: lineHeight }}>
-            Effleurage consists of long sweeping strokes around the massage
-            area', 'Petrissage is the technique that involves kneading the
-            muscles', 'Tapotement technique uses the side of your hands to
-            loosen the muscles in a fast tapping motion
-          </p>
-        </Paper>
-      </Grid>
+            <h2 style={{ textAlign: "center" }}>{title}</h2>
+            <Divider style={{ marginTop: 16 }} />
+            <Grid item container style={{ marginTop: 16 }} spacing={3}>
+              {showPrices(12, "100%")}
+            </Grid>
+            <Grid item container style={{ marginTop: 24 }} direction="column">
+              <h3>Purpose:</h3>
+              <p style={{ marginTop: 16 }}>
+                Promote relaxation, blood flow and facilitates healing for
+                disorders and diseases
+              </p>
+            </Grid>
+            <Grid item container style={{ marginTop: 8 }} direction="column">
+              <h3>Benefits:</h3>
+              <p style={{ marginTop: 16 }}>
+                Pain Management, Increased Blood Flow Reduced Stress, Increased
+                Sense of Well Being, Relaxation
+              </p>
+            </Grid>
+            <Grid item container justify="flex-end">
+              <Paper
+                style={{
+                  backgroundColor: "#541919",
+                  padding: 16,
+                  height: 50,
+                  width: 180,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                  cursor: "pointer",
+                  marginTop: 40,
+                  borderRadius: 50,
+                }}
+                elevation={6}
+                // onClick={() => setQuoteModalVisible(true)}
+              >
+                <p className="cta-text"> Book Now</p>
+                <ArrowRightAltIcon />
+              </Paper>
+            </Grid>
+          </Paper>
+        </Grid>
+      );
+    });
+  }
+  return (
+    <Grid container style={{ marginTop: 24 }}>
       <Grid
         item
         container
         xs={12}
-        md={2}
-        alignItems="center"
-        justify="center"
-        style={{ marginBottom: 24, marginTop: 24 }}
+        style={{
+          paddingLeft: horizonalPadding,
+          paddingRight: horizonalPadding,
+        }}
       >
-        <Button
-          variant="contained"
-          // style={{backgroundColor:'rgba(90,0,0,.7)'}}
-          color="primary"
-          style={{
-            width: smallScreen ? 170 : "70%",
-            height: smallScreen ? 65 : "50%",
-          }}
+        <h1>Massages</h1>
+
+        <Grid
+          item
+          container
+          xs={12}
+          style={{ marginTop: 24 }}
+          spacing={3}
+          justify="center"
+          alignItems="center"
         >
-          Book Now
-        </Button>
+          {showCards()}
+        </Grid>
+        <Grid
+          item
+          container
+          xs={12}
+          style={{ marginTop: 24, marginBottom: 24 }}
+          justify="center"
+        >
+          <Grid item xs={12} md={4}>
+            <Paper
+              elevation={4}
+              style={{
+                width: "100%",
+                maxHeight: "100%",
+                //  height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                padding: 24,
+                //   border: "1px solid black",
+                borderRadius: 20,
+              }}
+            >
+              <h3 style={{ textAlign: "center" }}>Add Ons</h3>
+              <Grid item container style={{ marginTop: 16 }} spacing={3}>
+                <p style={{ padding: 8 }}>Hot Towel Treatment - $5.00</p>
+                <p style={{ padding: 8 }}>Aromatherapy - $5.00</p>
+                <p style={{ padding: 8 }}>
+                  Full Body Stretching (additional 20 minutes) - $25.00
+                </p>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
-};
-
-const styles = {
-  ctaBtn: {
-    backgroundColor: "rgba(90,0,0,.7)",
-    color: "white",
-    marginTop: 50,
-    width: "50%",
-  },
-  descripGridStyle: {
-    //  backgroundColor:'red',
-    flex: 1,
-  },
-  card: {
-    marginTop: 30,
-    marginBottom: 40,
-    backgroundColor: "rgba(220,220,220,1)",
-    //    boxShadow:' rgb(255, 255, 255) 5px 5px 5px 0px, rgb(0, 0, 0) 4px 4px 15px 0px inset, 5px 5px 17px 11px rgba(0,0,0,0)',
-    borderRadius: 10,
-    width: "90%",
-    minHeight: 100,
-    //    border: '1px solid rgba(180,0,0,.2)',
-  },
-  input: {
-    //   border:'none',
-    width: "40%",
-  },
 };
 
 export default ServicePage;

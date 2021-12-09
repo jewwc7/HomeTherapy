@@ -16,7 +16,7 @@ const { filterArrEquality } = myFunctions;
 //very important! Have to intialize the context within child components. Not the main app, if I do the main app, intial value of context will be provided all the time
 //review onenote for the above
 const AppState = (props) => {
-  const { massageArr } = data;
+  const { massageArr, massageTypes } = data;
   const lineHeight = 1.5;
   const afterHeaderMargin = 24;
   const afterParagraphMargin = 60;
@@ -29,7 +29,13 @@ const AppState = (props) => {
   const clickableChip = "rgba(220,220,220,.5)";
   const listItemFont = 20;
   const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.down("md"), {
+  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"), {
+    defaultMatches: true,
+  });
+  const mediumScreen = useMediaQuery(theme.breakpoints.up("md"), {
+    defaultMatches: true,
+  });
+  const largeScreen = useMediaQuery(theme.breakpoints.up("lg"), {
     defaultMatches: true,
   });
   const [modalVisible, setModalVisible] = useState(false);
@@ -137,6 +143,9 @@ const AppState = (props) => {
         clickableChip,
         subtTitleText,
         bigPText,
+        massageTypes,
+        mediumScreen,
+        largeScreen,
       }}
     >
       {props.children}

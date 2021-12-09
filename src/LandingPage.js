@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import AppContext from "./context/appContext";
-import { NewBoss } from "./Boss";
+import CustomChip from "./CustomChip";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 import {
@@ -30,15 +30,19 @@ import {
   useMediaQuery,
 } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
-import person19 from "./Photos/person19.jpg";
+
 import massage4 from "./Photos/massage4.jpg";
 import massage1 from "./Photos/massage1.jpg";
-import massage2 from "./Photos/massage2.jpg";
-import massageGun from "./Photos/massageGun.jpg";
+
+import hero from "./Photos/hero.jpg";
+import purposeImg from "./Photos/purposeImg.jpg";
+import missionImg1 from "./Photos/missionImg1.jpg";
+import bioImg from "./Photos/bioImg.svg";
+import calendar from "./Photos/calendar.jpg";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
-import PinterestIcon from "@material-ui/icons/Pinterest";
+
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import myFunctions from "./MyFunctions2";
 import { useHistory } from "react-router-dom";
@@ -46,754 +50,650 @@ const { isEqualTo, isGreaterThan } = myFunctions;
 
 const chipColor = "white";
 const cardHeaderColor = "rgba(10,0,0,1)";
-
-//use this so I can refernce object value instead of strings. Change in one place affects all which is great
-const massageTypes = {
-  swedish: "Swedish",
-  deepTissue: "Deep Tissue",
-  sports: "Sports Massage",
-  thai: "Thai Massaage",
-  thirty: "30 minutes",
-  sixty: "60 minutes",
-  ninety: "90 Minutes",
-  oneTwenty: "120 Minutes",
-};
+const horizonalPadding = 24;
+const paperRadius = 20;
 
 const LandingPage = (props) => {
   const classes = useStyles();
   const appContext = useContext(AppContext);
-  const { lineHeight, afterHeaderMargin, smallScreen } = appContext;
-  const history = useHistory();
-  return (
-    <div style={{}}>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        style={{
-          color: "white",
-          padding: 15,
-          backgroundColor: "rgba(20,20,20,.1)",
-        }}
-      >
-        <Slide
-          in
-          mountOnEnter
-          direction="up"
-          timeout={{ appear: 300, enter: 600 }}
-        >
-          <Grid item direction="column" xs={12} md={6} style={{}}>
-            <Paper style={{}}>
-              <img
-                {...props}
-                src={massage2}
-                alt="Owner"
-                style={{ maxHeight: 500, width: "100%" }}
-              />
-            </Paper>
-          </Grid>
-        </Slide>
-        <Grid
-          item
-          container
-          direction="column"
-          style={styles.descripGridStyle}
-          xs={12}
-          md={6}
-        >
-          <Fade in timeout={{ appear: 900, enter: 1200 }}>
-            <Grid
-              item
-              container
-              style={{ flexDirection: "column", alignItems: "center" }}
-            >
-              <Grid item container direction="column" alignItems="center">
-                <h1
-                  style={{
-                    paddingTop: smallScreen ? 30 : 0,
-                  }}
-                >
-                  Mobile Therapist
-                </h1>
-                <p
-                  style={{
-                    width: 320,
-                    marginTop: afterHeaderMargin,
-                    lineHeight: lineHeight,
-                  }}
-                >
-                  Want a break from the daily grind? CityTouch Licensed Massage
-                  Therapy’s broad range of massage therapies offers
-                  result-driven massage to improve your health. Our massage
-                  therapists are licensed and insured by New York State and are
-                  regularly measured on high standards of quality
-                  assurance—ensuring a safe, positive, and beneficial experience
-                  for our clients.
-                </p>
-              </Grid>
-              <Grid
-                item
-                container
-                style={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  style={styles.ctaBtn}
-                  size="large"
-                  color="primary"
-                  variant="contained"
-                >
-                  Book Now
-                </Button>
-              </Grid>
-            </Grid>
-          </Fade>
-        </Grid>
-      </Grid>
-      <Massages />
-      <NewBoss />
-      <Reviews />
-      <ContactForm />
-    </div>
-  );
-};
-
-const Massages = () => {
-  const classes = useStyles();
-
-  const appContext = useContext(AppContext);
-  const {
-    swedish,
-    deepTissue,
-    sports,
-    thai,
-    thirty,
-    sixty,
-    ninety,
-    oneTwenty,
-  } = massageTypes;
-  const [massageCard, setMassageCard] = useState({
-    massageSelected: sports,
-    timeSelected: null,
-  });
   const {
     lineHeight,
     afterHeaderMargin,
-    mainSectionMargin,
     smallScreen,
-    textColor,
-    thirdColor,
-    dispatch,
-    currentState,
-    clickableChip,
+    mediumScreen,
+    LargeScreen,
   } = appContext;
-
   const history = useHistory();
-  function setCardandMassage(massage) {
-    setMassageCard((prev) => {
-      return {
-        ...prev,
-        massageSelected: massage,
-      };
-    });
-    dispatch({ type: "Select Massage", payload: massage });
-  }
-  //change the selectedMassage in currentState then go to the singleMassagepage
-  function goSingleMassagePage(massage, link) {
-    dispatch({
-      type: "Select Massage",
-      payload: massage,
-    });
-    history.push(link);
-  }
-
   return (
-    <Grid
-      container
-      direction="row"
-      justify="space-between"
-      style={{ padding: 15, marginTop: mainSectionMargin, ...styles.linear }}
-    >
-      <Grid
-        item
-        container
-        xs={12}
-        md={6}
-        style={{
-          position: "relative",
-          height: smallScreen ? 400 : 500,
-          //  marginTop: smallScreen ? 40 : 40,
-        }}
-      >
-        <Paper
-          elevation={5}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <img
-            src={massage4}
-            alt="back massage"
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "rgba(0,0,0,.4)",
-            }}
-          />
-        </Paper>
-        <div
-          style={{
-            position: "absolute",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(20,10,10,.4)",
-            width: "100%",
-            height: smallScreen ? "100%" : 500,
-          }}
-        >
-          <h2 style={{ textAlign: "center", color: "white", fontSize: 54 }}>
-            Massages
-          </h2>
-          <ArrowRightAltIcon style={{ color: "white", fontSize: 30 }} />
-        </div>
+    <Grid item container style={{}}>
+      <Grid container item style={{ height: 620 }}>
+        <Hero />
       </Grid>
       <Grid
         container
         item
-        direction="column"
-        xs={12}
-        md={5}
-        style={{ justifyContent: "center", marginTop: smallScreen ? 32 : 0 }}
+        style={{ backgroundColor: "#E3E3E3", height: mediumScreen ? 400 : 800 }}
       >
-        <Grid container item spacing={2}>
-          <Grid item xs={12}>
-            <Chip
-              label="Swedish"
-              avatar={
-                <Avatar
-                  style={{
-                    backgroundColor: isEqualTo(
-                      swedish,
-                      massageCard.massageSelected
-                    )
-                      ? thirdColor
-                      : "",
-                  }}
-                >
-                  S
-                </Avatar>
-              }
-              style={{
-                fontSize: 18,
-                backgroundColor: chipColor,
-              }}
-              variant="outlined"
-              onClick={() => setCardandMassage(swedish)}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Chip
-              label="Sports"
-              avatar={
-                <Avatar
-                  style={{
-                    backgroundColor: isEqualTo(
-                      sports,
-                      massageCard.massageSelected
-                    )
-                      ? thirdColor
-                      : "",
-                  }}
-                >
-                  S
-                </Avatar>
-              }
-              style={{
-                fontSize: 18,
-                backgroundColor: chipColor,
-              }}
-              variant="outlined"
-              onClick={() => setCardandMassage(sports)}
-            />
-          </Grid>
-          <Grid item xs={12} style={{}}>
-            <Chip
-              label="Deep Tissue"
-              avatar={
-                <Avatar
-                  style={{
-                    backgroundColor: isEqualTo(
-                      deepTissue,
-                      massageCard.massageSelected
-                    )
-                      ? thirdColor
-                      : "",
-                  }}
-                >
-                  D
-                </Avatar>
-              }
-              style={{
-                fontSize: 18,
-                backgroundColor: chipColor,
-              }}
-              variant="outlined"
-              onClick={() => setCardandMassage(deepTissue)}
-            />
-          </Grid>
-        </Grid>
-        <Card style={styles.card}>
-          <CardHeader
-            avatar={<Avatar style={{}}>K</Avatar>}
-            title={
-              <h2 style={{ color: cardHeaderColor }}>
-                {currentState.selectedMassage.title}
-              </h2>
-            }
-            style={{}}
-          />
-          <CardContent
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "60%",
-            }}
-          >
-            <Chip
-              label="30min"
-              variant="outlined"
-              disabled={
-                currentState.selectedMassage.prices[0].hasOwnProperty(30)
-                  ? false
-                  : true
-              }
-              clickable={
-                currentState.selectedMassage.prices[0].hasOwnProperty(30)
-                  ? true
-                  : false
-              }
-              style={{
-                backgroundColor:
-                  currentState.selectedMassage.prices[0].hasOwnProperty(30)
-                    ? clickableChip
-                    : null,
-              }}
-            />
-            <Chip
-              label="60min"
-              disabled={
-                currentState.selectedMassage.prices[0].hasOwnProperty(60)
-                  ? false
-                  : true
-              }
-              variant="outlined"
-              clickable={
-                currentState.selectedMassage.prices[0].hasOwnProperty(60)
-                  ? true
-                  : false
-              }
-              style={{
-                backgroundColor:
-                  currentState.selectedMassage.prices[0].hasOwnProperty(60)
-                    ? clickableChip
-                    : null,
-              }}
-            />
-            <Chip
-              label="90min"
-              variant="outlined"
-              disabled={
-                currentState.selectedMassage.prices[0].hasOwnProperty(90)
-                  ? false
-                  : true
-              }
-              clickable={
-                currentState.selectedMassage.prices[0].hasOwnProperty(90)
-                  ? true
-                  : false
-              }
-              style={{
-                backgroundColor:
-                  currentState.selectedMassage.prices[0].hasOwnProperty(90)
-                    ? clickableChip
-                    : null,
-              }}
-            />
-            <Chip
-              label="120min"
-              variant="outlined"
-              disabled={
-                currentState.selectedMassage.prices[0].hasOwnProperty(120)
-                  ? false
-                  : true
-              }
-              clickable={
-                currentState.selectedMassage.prices[0].hasOwnProperty(120)
-                  ? true
-                  : false
-              }
-              style={{
-                backgroundColor:
-                  currentState.selectedMassage.prices[0].hasOwnProperty(120)
-                    ? clickableChip
-                    : null,
-              }}
-            />
-          </CardContent>
-          <SwitchTransition mode="out-in">
-            <CSSTransition
-              classNames="alert"
-              key={currentState.selectedMassage.description}
-              //this is needed if timeout not provided. If timeout provided I beleive it will run the timeouts instead of the css
-              addEndListener={(node, done) => {
-                node.addEventListener("transitionend", done, false);
-              }}
-            >
-              <CardContent style={{ lineHeight: lineHeight, color: textColor }}>
-                {currentState.selectedMassage.description}
-              </CardContent>
-            </CSSTransition>
-          </SwitchTransition>
-          <CardActions>
-            <Button
-              onClick={() =>
-                goSingleMassagePage(
-                  currentState.selectedMassage.title,
-                  "/massage"
-                )
-              }
-              endIcon={<ArrowRightAltIcon />}
-            >
-              See More
-            </Button>
-            <Button
-              variant="contained"
-              // style={{backgroundColor:'rgba(90,0,0,.7)'}}
-              color="primary"
-            >
-              Book Now
-            </Button>
-          </CardActions>
-        </Card>
+        <Purpose />
+      </Grid>
+      <Grid container item style={{ height: mediumScreen ? 420 : "100%" }}>
+        <Mission />
       </Grid>
       <Grid
-        item
         container
-        xs={12}
-        md={6}
+        item
         style={{
-          position: "relative",
-          marginTop: smallScreen ? 48 : 48,
-          height: smallScreen ? 500 : 650,
+          backgroundColor: "#E3E3E3",
+          height: mediumScreen ? 500 : 640,
+          marginTop: mediumScreen ? null : 24,
         }}
       >
-        <Paper
-          elevation={5}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <img
-            src={massage1}
-            alt="back massage"
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
-          />
-        </Paper>
-        <div
-          style={{
-            position: "absolute",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(20,10,10,.4)",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <h2
-            style={{
-              textAlign: "center",
-              color: "white",
-              fontSize: smallScreen ? 36 : 54,
-            }}
-          >
-            Enhancements
-          </h2>
-          <ArrowRightAltIcon style={{ color: "white", fontSize: 30 }} />
-        </div>
+        <Services />
+      </Grid>
+      <Grid container item style={{ height: mediumScreen ? 400 : "100%" }}>
+        <Bio />
+      </Grid>
+      <Grid container item style={{}}>
+        <Reviews />
       </Grid>
       <Grid
-        item
         container
-        xs={12}
-        md={5}
-        direction="column"
+        item
+        style={{ marginTop: 24, height: mediumScreen ? "100%" : "100%" }}
+      >
+        <Appointment />
+      </Grid>
+      <Grid
+        container
+        item
         style={{
-          paddingTop: smallScreen ? 32 : 48,
+          backgroundColor: "#541919",
+          height: "100%",
+          marginTop: mediumScreen ? 24 : 160,
         }}
       >
-        <Grid
-          container
-          item
-          spacing={2}
-          style={{ marginTop: smallScreen ? 0 : 48 }}
-        >
-          <Grid item xs={12}>
-            <Chip
-              label="Muscle Gun Therapy"
-              avatar={
-                <Avatar
-                  style={{
-                    backgroundColor: isEqualTo(thirty, massageCard.timeSelected)
-                      ? thirdColor
-                      : "",
-                  }}
-                >
-                  S
-                </Avatar>
-              }
-              // color={selected ? 'secondary': ''}
-              style={{
-                fontSize: 18,
-                backgroundColor: chipColor,
-              }}
-              variant="outlined"
-              onClick={() =>
-                setMassageCard((prev) => {
-                  return {
-                    ...prev,
-                    timeSelected: thirty,
-                  };
-                })
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Chip
-              label="Aroma Therapy"
-              avatar={
-                <Avatar
-                  style={{
-                    backgroundColor: isEqualTo(sixty, massageCard.timeSelected)
-                      ? thirdColor
-                      : "",
-                  }}
-                >
-                  S
-                </Avatar>
-              }
-              style={{
-                fontSize: 18,
-                backgroundColor: chipColor,
-              }}
-              variant="outlined"
-              onClick={() =>
-                setMassageCard((prev) => {
-                  return {
-                    ...prev,
-                    timeSelected: sixty,
-                  };
-                })
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Chip
-              label="Advanced Muscle Therapy"
-              avatar={
-                <Avatar
-                  style={{
-                    backgroundColor: isEqualTo(ninety, massageCard.timeSelected)
-                      ? thirdColor
-                      : "",
-                  }}
-                >
-                  A
-                </Avatar>
-              }
-              style={{
-                fontSize: 18,
-                backgroundColor: chipColor,
-              }}
-              variant="outlined"
-              onClick={() =>
-                setMassageCard((prev) => {
-                  return {
-                    ...prev,
-                    timeSelected: ninety,
-                  };
-                })
-              }
-            />
-          </Grid>
-        </Grid>
-
-        <Card style={styles.card}>
-          <CardHeader
-            avatar={<Avatar style={{ borderRadius: 50 }}>M</Avatar>}
-            title={<h2 style={{ color: "black" }}>Muscle Gun Therapy</h2>}
-            style={{}}
-          />
-          <CardContent>
-            <p>
-              Quickly sweep across your upper traps, palms, quads, hamstrings,
-              and feet for 15 seconds each to help wake up the body and get
-              blood flowing.{" "}
-            </p>
-          </CardContent>
-          <CardActions>
-            <Button endIcon={<ArrowRightAltIcon />}>See More</Button>
-            <Button variant="contained" color="primary">
-              Book Now
-            </Button>
-          </CardActions>
-        </Card>
+        <Footer />
       </Grid>
     </Grid>
   );
 };
 
-export const ContactForm = () => {
-  const history = useHistory();
+const Hero = () => {
+  const classes = useStyles();
   const appContext = useContext(AppContext);
-  const {
-    subtTitleText,
-    bigPText,
-    afterHeaderMargin,
-    afterParagraphMargin,
-    smallScreen,
-    textColor,
-  } = appContext;
+  const { lineHeight, afterHeaderMargin, smallScreen } = appContext;
+  const history = useHistory();
   return (
     <Grid
+      item
       container
+      xs={12}
       style={{
-        padding: 15,
-        marginTop: 40,
-        backgroundColor: "rgba(20,20,20,.1)",
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover", //100% looks good on desktop, make tenary if want to change
+        height: "100%",
         width: "100%",
+        position: "relative",
       }}
+      justify="center"
+      alignItems="center"
     >
-      <Grid item xs={12} md={6}>
+      <Grid
+        item
+        container
+        xs={12}
+        //   md={6}
+        justify="center"
+        alignItems="center"
+      >
         <Grid
+          xs={10}
           item
           container
           direction="column"
-          style={{ width: "80%", pading: 16, marginBottom: 40 }}
+          alignItems="center"
+          style={{}}
         >
-          <h2 style={{ textAlign: "center", marginBottom: 24 }}>Contact Me</h2>
-          <TextField
-            label="First Name"
-            variant="standard"
-            InputLabelProps={{
-              style: {
-                color: "#003E3A",
-              },
+          <h1
+            style={{
+              color: "white",
+              fontSize: 48,
+              lineHeight: 1.2,
+              textAlign: "center",
             }}
-            style={{ ...styles.input }}
-          ></TextField>
-          <TextField
-            variant="standard"
-            label="Last Name"
-            InputLabelProps={{
-              style: {
-                color: "#003E3A",
-              },
+          >
+            Mobile Massage Therapist
+          </h1>
+          <p
+            style={{
+              color: "white",
+              marginTop: 24,
+              textAlign: "center",
             }}
-            style={{ ...styles.input, marginRight: 15 }}
-          ></TextField>
-          <TextField
-            variant="standard"
-            label="Email"
-            InputLabelProps={{
-              style: {},
+          >
+            A better mind, body and spirit - One day at a time
+          </p>
+          <Paper
+            style={{
+              backgroundColor: "#541919",
+              padding: 16,
+              height: 70,
+              width: 160,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              marginTop: 40,
+              borderRadius: 40,
+              alignSelf: "center",
             }}
-            style={{ ...styles.input, marginRight: 15 }}
-          ></TextField>
-          <TextField
-            label="Age"
-            select
-            size="medium"
-            style={{ ...styles.input, marginRight: 15 }}
+            elevation={6}
+            // onClick={() => setQuoteModalVisible(true)}
           >
-            <MenuItem value={10} onClick={(e) => console.log(e.target)}>
-              18-30
-            </MenuItem>
-            <MenuItem value={20}>31-49</MenuItem>
-            <MenuItem value={30}>50 or Older</MenuItem>
-          </TextField>
-          <TextField
-            label="Gender"
-            select
-            size="medium"
-            style={{ ...styles.input, marginRight: 15 }}
+            <p className="cta-text">Book Now</p>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
+
+const Purpose = () => {
+  const appContext = useContext(AppContext);
+  const {
+    lineHeight,
+    afterHeaderMargin,
+    smallScreen,
+    mediumScreen,
+    largeScreen,
+  } = appContext;
+  return (
+    <Grid
+      item
+      container
+      xs={12}
+      style={{
+        paddingLeft: horizonalPadding,
+        paddingRight: horizonalPadding,
+        marginTop: 24,
+      }}
+      justify={mediumScreen ? "space-between" : null}
+    >
+      <Grid item container xs={12} md={5} style={{}}>
+        <Grid item style={{}}>
+          <h1
+            style={{
+              color: "#151515",
+              fontSize: 48,
+              lineHeight: 1.2,
+            }}
           >
-            <MenuItem value={10}>Male</MenuItem>
-            <MenuItem value={20}>Female</MenuItem>
-            <MenuItem value={30}>Non Binary</MenuItem>
-            <MenuItem value={30}>Other</MenuItem>
-          </TextField>
-          <TextField
-            multiline
-            variant="outlined"
-            placeholder="Write something.."
-            style={{}}
-          ></TextField>
-          <Button
-            color="primary"
-            variant="contained"
-            style={{ ...styles.ctaBtn }}
+            Our Purpose
+          </h1>
+          <p
+            style={{
+              color: "#151515",
+              marginTop: 24,
+            }}
           >
-            Submit
-          </Button>
+            The "Home" is a physical and mental space not just where you reside
+            physically, but mentally as well. In these spaces - one looks for
+            peace, love, serenity and security. A secure place to be open and
+            received. With H.O.M.E Therapy you will be treated with the utmost
+            respect and attention.
+          </p>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} md={5} style={{}}>
+        <img
+          src={purposeImg}
+          // className="dualpics"
+          alt="massage"
+          style={{ width: "100%", height: "85%" }}
+        />
+      </Grid>
+    </Grid>
+  );
+};
+
+const Mission = () => {
+  const appContext = useContext(AppContext);
+  const {
+    lineHeight,
+    afterHeaderMargin,
+    smallScreen,
+    mediumScreen,
+    largeScreen,
+  } = appContext;
+
+  return (
+    <Grid
+      item
+      container
+      xs={12}
+      style={{
+        paddingLeft: horizonalPadding,
+        paddingRight: horizonalPadding,
+        height: "100%",
+        marginTop: 24,
+      }}
+      justify="space-between"
+    >
+      <Grid item container xs={12} md={5} style={{ height: "100%" }}>
+        <img
+          src={missionImg1}
+          // className="dualpics"
+          alt="massage"
+          style={{ width: "100%", height: "85%" }}
+        />
+      </Grid>
+      <Grid item container xs={12} md={5}>
+        <Grid item style={{ marginTop: mediumScreen ? null : 24 }}>
+          <h1
+            style={{
+              color: "#151515",
+              fontSize: 48,
+              lineHeight: 1.2,
+              textAlign: mediumScreen ? null : "center",
+            }}
+          >
+            Our Mission
+          </h1>
+          <p
+            style={{
+              color: "#151515",
+              marginTop: 24,
+            }}
+          >
+            The "Home" is a physical and mental space not just where you reside
+            physically, but mentally as well. In these spaces - one looks for
+            peace, love, serenity and security. A secure place to be open and
+            received. With H.O.M.E Therapy you will be treated with the utmost
+            respect and attention.
+          </p>
+          <Paper
+            style={{
+              backgroundColor: "#541919",
+              padding: 16,
+              height: 50,
+              width: 180,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              marginTop: 40,
+              borderRadius: 50,
+              alignSelf: mediumScreen ? null : "center",
+            }}
+            elevation={6}
+            // onClick={() => setQuoteModalVisible(true)}
+          >
+            <p className="cta-text">See Massages</p>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
+
+const Services = () => {
+  const appContext = useContext(AppContext);
+  const {
+    lineHeight,
+    afterHeaderMargin,
+    smallScreen,
+    mediumScreen,
+    largeScreen,
+  } = appContext;
+  const massageChips = [
+    {
+      title: "Swedish",
+    },
+    {
+      title: "Sports",
+    },
+    {
+      title: "Deep TIssue",
+    },
+  ];
+
+  const addOnChips = [
+    {
+      title: "Hot Towel",
+    },
+    {
+      title: "Full Body Stretching",
+    },
+    {
+      title: "Aroma Therapy",
+    },
+  ];
+  function showChips() {
+    return massageChips.map((chip, index) => {
+      const { title } = chip;
+      return (
+        <Grid item container xs={12} md={5}>
+          <CustomChip title={title} width="80%" />
+        </Grid>
+      );
+    });
+  }
+
+  function showAddOns() {
+    return addOnChips.map((chip, index) => {
+      const { title } = chip;
+      return <Chip label={title} disabled />;
+    });
+  }
+  return (
+    <Grid
+      item
+      container
+      direction="column"
+      xs={12}
+      style={{
+        paddingLeft: horizonalPadding,
+        paddingRight: horizonalPadding,
+        height: "100%",
+        marginTop: 24,
+      }}
+    >
+      <h1
+        style={{
+          color: "black",
+          fontSize: 48,
+          lineHeight: 1.2,
+          textAlign: mediumScreen ? null : "center",
+        }}
+      >
+        Services
+      </h1>
+      <Grid item xs={10} md={8} style={{ marginTop: 24 }} justify="center">
+        <Grid item>
+          <Paper
+            elevation={0}
+            style={{
+              width: "100%",
+
+              maxHeight: "100%",
+              display: "flex",
+              flexDirection: "column",
+              padding: 24,
+              border: "1px solid black",
+              borderRadius: paperRadius,
+            }}
+          >
+            <Grid item container>
+              <h2>Massages</h2>
+              <Grid item container style={{ marginTop: 16 }} spacing={3}>
+                {showChips()}
+              </Grid>
+            </Grid>
+            <Grid item container style={{ marginTop: 24 }}>
+              <h2>Add-Ons</h2>
+              <Grid item container style={{ marginTop: 16 }} spacing={3}>
+                {showAddOns()}
+              </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
+
+const Bio = () => {
+  const appContext = useContext(AppContext);
+  const { smallScreen, mediumScreen, largeScreen } = appContext;
+  return (
+    <Grid
+      item
+      container
+      xs={12}
+      style={{
+        paddingLeft: horizonalPadding,
+        paddingRight: horizonalPadding,
+        height: "100%",
+        marginTop: 24,
+      }}
+      justify="space-between"
+    >
+      <Grid item container xs={12} md={5} style={{}}>
+        <Grid item style={{}}>
+          <h1
+            style={{
+              color: "#151515",
+              fontSize: 48,
+              lineHeight: 1.2,
+            }}
+          >
+            Meet KeAla "KeKe" Jones
+          </h1>
+          <h4>Owner, B.S. Exercise Science, LMT</h4>
+          <p
+            style={{
+              color: "#151515",
+              marginTop: 24,
+            }}
+          >
+            As a former collegiate athlete and having a love for the human body
+            as a whole - KeKe received a Bachelors of Science in Exercise
+            Science from the University of Tampa in 2015. In time, realizing and
+            fostering her ability to nurture in conjunction with her natural
+            passion of helping others - She became a Licensed Massage Therapist
+            on December 12th, 2020. She combines the best techniques including
+            Swedish and Deep Tissue massage to create a comforting and
+            therapeutic treatment that is unique and customized for each
+            person's own individual healing experience.
+          </p>
         </Grid>
       </Grid>
       <Grid
         item
         container
         xs={12}
-        md={6}
-        direction="column"
-        justify="space-between"
-        alignItems="center"
-        style={{
-          marginTop: smallScreen ? 40 : 0,
-        }}
+        md={5}
+        style={{ height: mediumScreen ? "100%" : 100 }}
       >
-        <Paper style={{ padding: 16, minHeight: 300 }}>
-          <Grid item container direction="column">
-            <h2 style={{ textAlign: "center" }}>Travel Radius</h2>
-            <p style={{ fontSize: 18, color: textColor, marginTop: 24 }}>
-              *Bookings less than 60 minutes must be within 10 mile Radius of
-              the Kansas City Zoo
+        <img
+          src={bioImg}
+          // className="dualpics"
+          alt="massage"
+          style={{ width: "100%", height: "100%" }}
+        />
+      </Grid>
+    </Grid>
+  );
+};
+
+const Appointment = () => {
+  const appContext = useContext(AppContext);
+  const {
+    lineHeight,
+    afterHeaderMargin,
+    smallScreen,
+    mediumScreen,
+    LargeScreen,
+  } = appContext;
+
+  return (
+    <Grid
+      item
+      container
+      xs={12}
+      style={{
+        paddingLeft: horizonalPadding,
+        paddingRight: horizonalPadding,
+        height: "100%",
+      }}
+    >
+      <Grid item container xs={12}>
+        <Grid item container>
+          <h1
+            style={{
+              color: "black",
+              fontSize: 48,
+              lineHeight: 1.2,
+            }}
+          >
+            Book An Appointment
+          </h1>
+        </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        xs={12}
+        justify={mediumScreen ? "space-between" : null}
+        style={{ marginTop: 16 }}
+      >
+        <Grid item container xs={12} md={5} style={{}}>
+          <Paper
+            elvation={0}
+            style={{
+              width: "100%",
+              height: 200,
+              display: "flex",
+              justifyContent: "space-evenly",
+              flexDirection: "column",
+              padding: 24,
+              border: "1px solid black",
+              borderRadius: paperRadius,
+            }}
+          >
+            <p>No same day appointments</p>
+            <p>
+              30 minutes refreshers not available outside 10 mile radius from
+              Kansas City Zoo.
             </p>
-            <p style={{ fontSize: 14, alignSelf: "center" }}>
-              6800 Zoo Dr<br></br> Kansas City, MO 64132{" "}
-            </p>
-            <Paper
-              style={{ height: 200, marginTop: afterHeaderMargin }}
-            ></Paper>
-          </Grid>
-        </Paper>
+          </Paper>
+        </Grid>
         <Grid
           item
           container
-          alignItems="center"
-          justify={smallScreen ? "center" : "flex-end"}
-          style={{ padding: 16, marginTop: smallScreen ? 0 : 16 }}
+          xs={12}
+          md={5}
+          style={{ height: mediumScreen ? "100%" : "80%" }}
         >
-          <h3>Follow me</h3>
-          <FacebookIcon style={{ fontSize: 60 }} />
-          <InstagramIcon style={{ fontSize: 60 }} />
+          <img
+            src={calendar}
+            // className="dualpics"
+            alt="massage"
+            style={{
+              width: "100%",
+              height: "100%",
+              marginTop: mediumScreen ? null : 24,
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
+
+const Footer = () => {
+  const appContext = useContext(AppContext);
+  const {
+    lineHeight,
+    afterHeaderMargin,
+    smallScreen,
+    mediumScreen,
+    LargeScreen,
+  } = appContext;
+
+  return (
+    <Grid
+      item
+      container
+      xs={12}
+      style={{
+        marginTop: 24,
+        paddingLeft: horizonalPadding,
+        paddingRight: horizonalPadding,
+      }}
+    >
+      <Grid item container xs={12} md={6} direction="column">
+        <h2
+          style={{
+            color: "white",
+          }}
+        >
+          Have a Question?
+        </h2>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "60%",
+            paddingTop: 16,
+          }}
+        >
+          <TextField
+            id="filled-basic"
+            label="Name"
+            variant="filled"
+            style={{ backgroundColor: "white" }}
+          />
+          <TextField
+            id="filled-basic"
+            label="Email"
+            variant="filled"
+            style={{ backgroundColor: "white" }}
+          />
+          <TextField
+            id="filled-basic"
+            label="Ask Something..."
+            variant="filled"
+            multiline={true}
+            rows={2}
+            style={{ backgroundColor: "white" }}
+          />
+        </div>
+      </Grid>
+      <Grid
+        xs={12}
+        md={6}
+        style={{
+          marginTop: mediumScreen ? null : 24,
+          marginBottom: mediumScreen ? null : 24,
+        }}
+      >
+        <Grid item xs={12} md={7}>
+          <Paper
+            elevation={6}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              padding: 10,
+              flexDirection: "column",
+              borderRadius: paperRadius,
+            }}
+          >
+            <h3>Follow Me</h3>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "column",
+                marginLeft: 10,
+                marginTop: 16,
+              }}
+            >
+              <div style={{ display: "flex" }}>
+                <TwitterIcon />
+                <p style={{ marginLeft: 10 }}>@KEKEJones</p>
+              </div>
+              <div style={{ display: "flex" }}>
+                <InstagramIcon />
+                <p style={{ marginLeft: 10 }}>@MISSKEKE</p>
+              </div>
+              <div style={{ display: "flex" }}>
+                <FacebookIcon />
+                <p style={{ marginLeft: 10 }}>homestudiotherapy@gmail.com</p>
+              </div>
+            </div>
+          </Paper>
         </Grid>
       </Grid>
     </Grid>
@@ -823,7 +723,7 @@ const Reviews = () => {
         "I definitely found it! Not from the area I am a bit   nervous, but everything is great! I am a hair stylist, with a      lot of physical pain and pain, they are beyond my expectations,    and getting rid of those still makes it a relaxing experience!",
     },
   ];
-
+  const classes = useStyles();
   const [reviews, setReviews] = useState(reviewsArr);
   const [reviewNum, setReviewNum] = useState(0);
   function randomNum() {
@@ -846,7 +746,7 @@ const Reviews = () => {
       }}
     >
       <Grid item xs={10} md={6}>
-        <Card style={{ minHeight: 200 }} raised>
+        <Card style={{ minHeight: 200, borderRadius: paperRadius }} raised>
           <CardHeader
             avatar={
               <Avatar style={{ borderRadius: 50, border: "1px solid #003E3A" }}>
@@ -861,6 +761,9 @@ const Reviews = () => {
                     endIcon={<ArrowRightAltIcon />}
                     style={{ fontSize: 8 }}
                     onClick={randomNum}
+                    classes={{
+                      label: classes.label, // Pass your override css here
+                    }}
                   >
                     Next review {reviewNum + 1} / {reviewsArr.length}
                   </Button>
@@ -909,7 +812,7 @@ const styles = {
   },
   input: {
     //   border:'none',
-    width: "70%",
+    width: "100%",
     marginBottom: 24,
   },
   listItemStyle: {
@@ -931,6 +834,9 @@ const styles = {
 const useStyles = makeStyles({
   btn: {
     color: "#003E3A",
+  },
+  label: {
+    color: "rgba(0,0,0,1)",
   },
 });
 

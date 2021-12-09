@@ -4,7 +4,6 @@ import TopNav from "./TopNav";
 import ServicePage from "./ServicePage";
 import IndividualServicePage from "./IndividualServicePage";
 import Boss from "./Boss";
-import ContactPage from "./ContactPage";
 //import Maps from './Maps'
 import {
   makeStyles,
@@ -49,9 +48,7 @@ function App() {
           <Route path="/boss">
             <Boss />
           </Route>
-          <Route path="/contact">
-            <ContactPage />
-          </Route>
+          <Route path="/contact"></Route>
         </Switch>
       </div>
     </ThemeProvider>
@@ -61,8 +58,8 @@ function App() {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      // main:'rgba(3,7,30,1)',
       main: "rgba(30,70,120,1)",
+      contrastText: "#fff",
     },
     secondary: {
       main: "#003E3A",
@@ -70,8 +67,11 @@ const theme = createMuiTheme({
   },
   overrides: {
     MuiButton: {
-      text: {
-        color: "rgba(255,255,255,1)",
+      label: {
+        color: "#fff",
+      },
+      outlined: {
+        borderColor: "rgba(125,0,0,.9)",
       },
     },
     MuiChip: {
@@ -82,6 +82,7 @@ const theme = createMuiTheme({
     },
   },
 });
+
 const useStyles = makeStyles({
   appContainer: {
     position: "relative",
