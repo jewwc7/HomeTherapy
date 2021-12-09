@@ -13,7 +13,9 @@ const TopNav = () => {
   const { modalVisible, setModalVisible } = appContext;
   const [outline, setOutline] = useState({});
   const redBackgroundColor = "rgba(65,0,0,.9)";
-
+  async function goToPage(page) {
+    history.push(page);
+  }
   useEffect(() => {
     console.log("paging");
   }, [outline]);
@@ -44,31 +46,50 @@ const TopNav = () => {
           <Hidden smDown>
             <Button
               variant={outline.home ? "outlined" : null}
-              onClick={() => setOutline({ home: true })}
+              onClick={() => {
+                setOutline({ home: true });
+                goToPage("/");
+              }}
             >
-              <Link to="/" style={styles.link}>
-                Home
-              </Link>
+              <Link style={styles.link}>Home</Link>
             </Button>
             <Button
               variant={outline.boss ? "outlined" : null}
-              onClick={() => setOutline({ boss: true })}
+              onClick={() => {
+                goToPage("/");
+                setOutline({ home: true });
+                setTimeout(() => {
+                  window.scrollTo({
+                    top: 2020,
+                    behavior: "smooth",
+                  });
+                }, 500);
+              }}
             >
-              <Link to="/boss" style={styles.link}>
-                Meet the Massuese
-              </Link>
+              <Link style={styles.link}>Meet the Massuese</Link>
             </Button>
             <Button
               variant={outline.services ? "outlined" : null}
-              onClick={() => setOutline({ services: true })}
+              onClick={() => {
+                setOutline({ services: true });
+                goToPage("/services");
+              }}
             >
-              <Link to="/services" style={styles.link}>
-                Massages
-              </Link>
+              <Link style={styles.link}>Massages</Link>
             </Button>
             <Button
               variant={outline.contact ? "outlined" : null}
-              onClick={() => setOutline({ contact: true })}
+              onClick={() => {
+                goToPage("/");
+                setOutline({ homoe: true });
+                setTimeout(() => {
+                  window.scrollTo({
+                    //this is how you scroll to bottom of page, used timeout so the new pages coordinates can be used(w/o timeout will scroll as far as prior page went down)
+                    top: document.body.scrollHeight,
+                    behavior: "smooth",
+                  });
+                }, 500);
+              }}
             >
               <Link to="/contact" style={styles.link}>
                 Contact

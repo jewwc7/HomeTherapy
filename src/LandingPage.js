@@ -218,7 +218,7 @@ const Purpose = () => {
         paddingRight: horizonalPadding,
         marginTop: 24,
       }}
-      justify={mediumScreen ? "space-between" : null}
+      justify={mediumScreen ? "space-between" : "space-between"}
     >
       <Grid item container xs={12} md={5} style={{}}>
         <Grid item style={{}}>
@@ -245,12 +245,16 @@ const Purpose = () => {
           </p>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={5} style={{}}>
+      <Grid item container xs={12} md={5} style={{ height: "100%" }}>
         <img
           src={purposeImg}
           // className="dualpics"
           alt="massage"
-          style={{ width: "100%", height: "85%" }}
+          style={{
+            width: "100%",
+            height: mediumScreen ? "85%" : "55%",
+            marginTop: smallScreen ? 24 : null,
+          }}
         />
       </Grid>
     </Grid>
@@ -289,48 +293,57 @@ const Mission = () => {
         />
       </Grid>
       <Grid item container xs={12} md={5}>
-        <Grid item style={{ marginTop: mediumScreen ? null : 24 }}>
-          <h1
-            style={{
-              color: "#151515",
-              fontSize: 48,
-              lineHeight: 1.2,
-              textAlign: mediumScreen ? null : "center",
-            }}
-          >
-            Our Mission
-          </h1>
-          <p
-            style={{
-              color: "#151515",
-              marginTop: 24,
-            }}
-          >
-            The "Home" is a physical and mental space not just where you reside
-            physically, but mentally as well. In these spaces - one looks for
-            peace, love, serenity and security. A secure place to be open and
-            received. With H.O.M.E Therapy you will be treated with the utmost
-            respect and attention.
-          </p>
-          <Paper
-            style={{
-              backgroundColor: "#541919",
-              padding: 16,
-              height: 50,
-              width: 180,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              marginTop: 40,
-              borderRadius: 50,
-              alignSelf: mediumScreen ? null : "center",
-            }}
-            elevation={6}
-            // onClick={() => setQuoteModalVisible(true)}
-          >
-            <p className="cta-text">See Massages</p>
-          </Paper>
+        <Grid item container style={{ marginTop: mediumScreen ? null : 24 }}>
+          <Grid item>
+            <h1
+              style={{
+                color: "#151515",
+                fontSize: 48,
+                lineHeight: 1.2,
+                textAlign: mediumScreen ? null : "center",
+              }}
+            >
+              Our Mission
+            </h1>
+            <p
+              style={{
+                color: "#151515",
+                marginTop: 24,
+              }}
+            >
+              The "Home" is a physical and mental space not just where you
+              reside physically, but mentally as well. In these spaces - one
+              looks for peace, love, serenity and security. A secure place to be
+              open and received. With H.O.M.E Therapy you will be treated with
+              the utmost respect and attention.
+            </p>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: smallScreen ? "center" : null,
+              }}
+            >
+              <Paper
+                style={{
+                  backgroundColor: "#541919",
+                  padding: 16,
+                  height: 50,
+                  width: 180,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  marginTop: 40,
+                  borderRadius: 50,
+                }}
+                elevation={6}
+                // onClick={() => setQuoteModalVisible(true)}
+              >
+                <p className="cta-text">See Massages</p>
+              </Paper>
+            </div>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
@@ -399,17 +412,25 @@ const Services = () => {
         marginTop: 24,
       }}
     >
-      <h1
+      <div
         style={{
-          color: "black",
-          fontSize: 48,
-          lineHeight: 1.2,
-          textAlign: mediumScreen ? null : "center",
+          display: "flex",
+          width: "100%",
+          justifyContent: "center",
         }}
       >
-        Services
-      </h1>
-      <Grid item xs={10} md={8} style={{ marginTop: 24 }} justify="center">
+        <h1
+          style={{
+            color: "black",
+            fontSize: 48,
+            lineHeight: 1.2,
+            textAlign: mediumScreen ? null : "center",
+          }}
+        >
+          Services
+        </h1>
+      </div>
+      <Grid item container style={{ marginTop: 24 }} justify="center">
         <Grid item>
           <Paper
             elevation={0}
@@ -470,7 +491,7 @@ const Bio = () => {
           >
             Meet KeAla "KeKe" Jones
           </h1>
-          <h4>Owner, B.S. Exercise Science, LMT</h4>
+          <h4 style={{ marginTop: 8 }}>Owner, B.S. Exercise Science, LMT</h4>
           <p
             style={{
               color: "#151515",
@@ -494,7 +515,10 @@ const Bio = () => {
         container
         xs={12}
         md={5}
-        style={{ height: mediumScreen ? "100%" : 100 }}
+        style={{
+          height: mediumScreen ? "100%" : 100,
+          marginTop: smallScreen ? 16 : null,
+        }}
       >
         <img
           src={bioImg}
@@ -562,11 +586,14 @@ const Appointment = () => {
               borderRadius: paperRadius,
             }}
           >
-            <p>No same day appointments</p>
-            <p>
-              30 minutes refreshers not available outside 10 mile radius from
-              Kansas City Zoo.
-            </p>
+            <h2>Select a day from the calendar to begin</h2>
+            <div>
+              <li>No same day appointments</li>
+              <li style={{ marginTop: 4 }}>
+                30 minutes refreshers not available outside 10 mile radius from
+                Kansas City Zoo.
+              </li>
+            </div>
           </Paper>
         </Grid>
         <Grid
@@ -676,7 +703,7 @@ const Footer = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 flexDirection: "column",
-                marginLeft: 10,
+                // marginLeft: 10,
                 marginTop: 16,
               }}
             >

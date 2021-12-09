@@ -139,7 +139,7 @@ const ServicePage = () => {
     return cardsDetails.map((card, index) => {
       const { title } = card;
       return (
-        <Grid item xs={12} md={5}>
+        <Grid item container xs={12} md={5}>
           <Paper
             elevation={4}
             style={{
